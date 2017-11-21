@@ -24,7 +24,7 @@ export class FetchService {
 
   constructor() { }
 
-  getCoursesList(): Observable<ICourse[]> {
-    return of(CORSES_LIST);
+  getCoursesList(): ICourse[] {
+    return CORSES_LIST;
   }
 }
