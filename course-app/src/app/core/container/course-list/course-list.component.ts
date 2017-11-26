@@ -17,7 +17,7 @@ export class CourseListComponent implements OnInit {
 
   ngOnInit() {
     this.courseList = this.fetchService.getCoursesList();
-    console.log('sd', this.courseList);
+    console.log('list: ', this.courseList);
   }
 
 }

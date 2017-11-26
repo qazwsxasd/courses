@@ -1,1 +1,6 @@
-<ul><li *ngFor="let course of courseList">name: {{ course.name }}</li></ul>
+<ul>
+  <li *ngFor="let course of courseList">
+    <app-course-item [item]="course">
+    </app-course-item>
+  </li>
+</ul>
