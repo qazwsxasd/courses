@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+
     SharedModule,
     CoreModule
   ],

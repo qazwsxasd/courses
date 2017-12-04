@@ -1,5 +1,8 @@
 @mixin wrap-container {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
-    background: #ccc;
+}
+
+@mixin button-primary {
+  padding: 5px 10px;
 }

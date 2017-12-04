@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FetchService } from '../../../services/fetch.service';
-import { ICourse } from '../../../models/course.model';
+import { Course } from '../../../models/course.model';
 
 @Component({
   selector: 'app-course-list',
@@ -9,7 +9,7 @@ import { ICourse } from '../../../models/course.model';
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit {
-  courseList: ICourse[];
+  courseList: Course[];
 
   constructor(
     private fetchService: FetchService
@@ -18,6 +18,10 @@ export class CourseListComponent implements OnInit {
   ngOnInit() {
     this.courseList = this.fetchService.getCoursesList();
     console.log('list: ', this.courseList);
+  }
+
+  deletedCourse(item: Course): void {
+    console.log('item', item);
   }
 
 }

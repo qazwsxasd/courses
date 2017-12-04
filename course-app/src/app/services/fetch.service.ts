@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { ICourse } from '../models/course.model';
+import { Course } from '../models/course.model';
 
 const CORSES_LIST = [
   {
@@ -24,7 +24,7 @@ export class FetchService {
 
   constructor() { }
 
-  getCoursesList(): ICourse[] {
+  getCoursesList(): Course[] {
     return CORSES_LIST;
   }
 }

@@ -1,3 +1,21 @@
-<p>
-  course-item component: {{ item.name }}
-</p>
+<div class="item">
+  <div class="item-description">
+    <div class="item-area">
+      <span class="item-title">Video course: </span>
+      <span class="item-value">{{ item.name }}</span>
+    </div>
+    <div class="item-area">
+      <span class="item-title">Duration: </span>
+      <span class="item-value">{{ item.duration }}</span>
+    </div>
+    <div class="item-area">
+      <span class="item-value">{{ item.startDate | date: short }}</span>
+    </div>
+    <div class="item-area wide"><span class="item-value">{{ item.description }}</span></div>
+  </div>
+  <div class="item-actions">
+    <button class="btn">Edit course</button>
+    <button class="btn" (click)="onDelete(item)">Delete</button>
+  </div>
+</div>
+

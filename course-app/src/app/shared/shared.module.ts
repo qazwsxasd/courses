@@ -6,13 +6,15 @@ import { NgModule } from '@angular/core';
 import {
   LogoComponent,
   HeaderComponent,
-  FooterComponent
+  FooterComponent,
+  LoginComponent
 } from './';
 
 const sharedComponents = [
   HeaderComponent,
   FooterComponent,
-  LogoComponent
+  LogoComponent,
+  LoginComponent
 ];
 
 
