@@ -1,4 +1,6 @@
-mentorship/courses task 1
+mentorship/courses 
+
+#### task 1: webpack/typescript ####
 
 -created base project structure;
 
