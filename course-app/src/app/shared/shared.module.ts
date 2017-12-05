@@ -3,29 +3,31 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './core/core.module';
+import {
+  LogoComponent,
+  HeaderComponent,
+  FooterComponent
+} from './';
 
-import { FetchService } from './services/fetch.service';
-
-import { AppComponent } from './app.component';
+const sharedComponents = [
+  HeaderComponent,
+  FooterComponent,
+  LogoComponent
+];
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    ...sharedComponents
   ],
   imports: [
     BrowserModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule,
-    CoreModule
   ],
-  providers: [
-    FetchService
-  ],
-  bootstrap: [AppComponent]
+  exports: [
+   ...sharedComponents
+  ]
 })
-export class AppModule { }
+export class SharedModule { }

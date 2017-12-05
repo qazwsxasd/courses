@@ -1,0 +1,12 @@
+@import "../../styles/mixins";
+@import "../../styles/variable";
+
+$header-background: $primary-color-grey;
+
+header {
+  background: $header-background;
+}
+
+.header-container {
+  @include wrap-container;
+}

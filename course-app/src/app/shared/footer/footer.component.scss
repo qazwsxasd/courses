@@ -1,0 +1,18 @@
+@import "../../styles/mixins";
+@import "../../styles/variable";
+
+$footer-background: $primary-color-grey;
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: $footer-background;;
+  text-align: center;
+}
+
+.footer-container {
+  @include wrap-container;
+}
