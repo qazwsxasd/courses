@@ -1,0 +1,15 @@
+TypeScript:
+	-don't use prefix 'I' when defining interface aliases;
+	-variables in camelCase;
+	-class names capitalized;
+	-use plural form for naming collections of items (arrays, etc.);		
+
+Angular:
+	-separate file name with dashes; add dot for description (common ng2 naming convention);	
+
+Scss: 
+	-dashed naming for seelctors;
+	-define varibales at variables.scss to reuse it;
+	-check for already defined styles at mixines.scss
+	
+

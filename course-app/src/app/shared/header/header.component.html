@@ -1,9 +1,14 @@
 <header>
   <div class="header-container">
-    <app-logo></app-logo>
+    <a class="header-logo">
+      <img class="logo-img" src="assets/logo.svg" alt="course-app logo">
+    </a>
+    <div *ngIf="isLogined">
+      breadcrums
+    </div>
     <div class="header-login">
       <p>hello, {{username}}</p>
-      <a class="login" href="#">login</a>
+      <a class="login" href="#" (click)="toggleLogin(event)">{{ isLogined ? 'logout' : 'login'}}</a>
     </div>
   </div>
 </header>

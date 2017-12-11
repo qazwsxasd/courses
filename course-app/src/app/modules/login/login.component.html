@@ -1,0 +1,15 @@
+<app-header></app-header>
+<div class="login">
+  <form class="login-form">
+    <div class="login-row">
+      <label class="login-row-label" for="userId">Username:</label>
+      <input type="text" placeholder="login" value="John" #user id="userId">
+    </div>
+    <div class="login-row">
+      <label class="login-row-label" for="passwordId">Password:</label>
+      <input type="password" placeholder="password" value="123" #password id="passwordId">
+    </div>
+    <button class="btn" (click)="loginUser({ name: user.value, password: password.value })">ok</button>
+  </form>
+</div>
+<app-footer></app-footer>

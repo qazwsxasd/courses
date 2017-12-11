@@ -1,13 +1,11 @@
 mentorship/courses 
-#### task 2: components ####
+
+#### task 3: Modules and Services ####
 
 
--add class which implements interface;
 
--add styles;
+-refactored app structure;
 
--add toolbox component (serach panel); implemented binding for search field;
-
--implement base usage of @Input, @Output;
-
--use built-in directives (e.g. ngFor, ngClass);
+-add auth service; use local storage;
+-add course list service;
+-add dialog service;

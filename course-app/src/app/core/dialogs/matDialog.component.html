@@ -1,0 +1,9 @@
+<div class="modal">
+    <div class="modal-icon" [ngClass]="icon"></div>
+    <div class="modal-title">{{title}}</div>
+    <div class="modal-message">{{message}}</div>
+    <div class="modal-buttons">
+        <button type="button" class="btn" (click)="dialogRef.close(true)">OK</button>
+        <button type="button" class="btn" (click)="dialogRef.close()">Cancel</button>
+    </div>
+</div>

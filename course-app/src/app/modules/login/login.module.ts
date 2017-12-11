@@ -3,31 +3,29 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
+import { SharedModule } from '../../shared/shared.module';
+
 import {
-  HeaderComponent,
-  FooterComponent,
-  ToolboxComponent
-} from './';
+  LoginComponent
+} from './login.component';
 
-const sharedComponents = [
-  HeaderComponent,
-  FooterComponent,
-  ToolboxComponent
+const components = [
+  LoginComponent
 ];
-
 
 @NgModule({
   declarations: [
-    ...sharedComponents
+    ...components,
   ],
   imports: [
     BrowserModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule
   ],
   exports: [
-   ...sharedComponents
+     ...components
   ]
 })
-export class SharedModule { }
+export class LoginModule { }

@@ -3,18 +3,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
-import {
-  ContainerComponent,
-  ContainerModule
-} from './';
+import { SimpleDialogService } from './dialogs/simple-dialog.service';
+import { AuthService } from './auth/auth.service';
+import { MatDialogService } from './dialogs/matDialog.service';
+
+import { ConfirmDialogComponent } from './dialogs/matDialog.component';
 
 const coreComponents = [
-  ContainerComponent
+  // ConfirmDialogComponent
 ];
-
 
 @NgModule({
   declarations: [
+    ConfirmDialogComponent,
     ...coreComponents
   ],
   imports: [
@@ -22,7 +23,14 @@ const coreComponents = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ContainerModule
+  ],
+  providers: [
+    SimpleDialogService,
+    MatDialogService,
+    AuthService
+  ],
+  entryComponents: [
+    ConfirmDialogComponent
   ],
   exports: [
     ...coreComponents,

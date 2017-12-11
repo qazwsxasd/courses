@@ -18,7 +18,7 @@ header {
     justify-content: space-between;
     align-items: center;
   }
-
+  
   &-login {
     text-align: right;
 
@@ -30,4 +30,14 @@ header {
       }
     }
   }
+
+  &-logo {
+    display: inline-block;;
+    width: 50px;
+    cursor: pointer;
+
+    &-img {
+        padding: 5px;
+    }
+}
 }

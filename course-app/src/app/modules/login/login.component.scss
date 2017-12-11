@@ -1,0 +1,25 @@
+@import "../../styles/mixins";
+
+.login {
+    @include wrap-container;
+
+    &-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &-row {
+        margin: 10px 0;
+        &-label {
+            width: 150px;
+        }
+    }
+}
+
+.btn {
+  @include button-primary;
+  min-width: 100px;
+  margin: 5px 0;
+}
