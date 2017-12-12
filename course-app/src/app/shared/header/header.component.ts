@@ -18,14 +18,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.username = this.authService.getUserInfo().username;
-    this.authService.isAuthenticated((res) => {      
+    this.authService.isAuthenticated((res) => {
       this.isLogined = res.logined;
       this.username = res.user;
     });
   }
 
-  toggleLogin(event: any): void {
-    this.isLogined 
+  toggleLogin(): void {
+    this.isLogined
     ? this.authService.logout()
     : this.authService.login({ name: 'John', password: 'sdfWD23s' });
   }
