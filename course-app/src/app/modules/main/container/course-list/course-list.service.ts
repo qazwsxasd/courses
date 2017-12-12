@@ -18,31 +18,24 @@ export class CourseListService {
 //     return Promise.resolve(MOCK_DATA);
 //   }
 
-//   initCoursesList(): void {
-//     this.fakeFetchCoursesList()
-//         .then(data => this.courses = data)
-//         .catch(this.handleError);
-//   }
+  //  getCoursesList(): Course[] {
+  //   return this.courses;
+  // }
 
-
-   getCoursesList(): Course[] {
-    return this.courses;
+  getCoursesList(): Observable<Course[]> {
+    return of(this.courses);
   }
 
-//   getCourseById(id: number) {
-//     return this.fakeFetchCoursesList()
-//       .then(data => data.filter(item => item.id === id)[0])
-//       .catch(this.handleError);
-//   }
-
   getCourseById(id: number) {
-    return this.courses.filter(item => item.id === id)[0];
+    return this.getCoursesList().subscribe(
+      courses => courses.filter(item => item.id === id)[0]
+    );
   }
 
   addItemToCourseList(item: Course): void {
     this.courses.push(new Course(
-        item.id, 
-        item.name, 
+        item.id,
+        item.name,
         item.startDate
     ));
   }
@@ -60,7 +53,7 @@ export class CourseListService {
     const finded = this.courses.find(value => value.id === item.id);
     if (finded) {
       index = this.courses.indexOf(finded);
-    }    
+    }
     if (index > -1) {
       this.courses.splice(index, 1);
     }
@@ -70,8 +63,8 @@ export class CourseListService {
     this.courses = [];
   }
 
-//   private handleError(error: any): Promise<any> {
-//     console.error('An error occurred', error);
-//     return Promise.reject(error.message || error);
-//   }
+  // private handleError(error: any): Promise<any> {
+  //   console.error('An error occurred', error);
+  //   return Promise.reject(error.message || error);
+  // }
 }

@@ -19,7 +19,7 @@ export class CourseListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.courseList = this.courseListService.getCoursesList(); // should be async
+    this.courseListService.getCoursesList().subscribe(courses => this.courseList = courses);
   }
 
   deletedCourse(item: Course): void {
@@ -33,7 +33,6 @@ export class CourseListComponent implements OnInit {
       if (confirmed) {
         console.log(confirmed);
         this.courseListService.deleteCourse(item);
-        this.courseList = this.courseListService.getCoursesList();
       }
     });
   }
