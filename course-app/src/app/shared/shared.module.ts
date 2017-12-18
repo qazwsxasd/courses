@@ -5,14 +5,12 @@ import { NgModule } from '@angular/core';
 
 import {
   HeaderComponent,
-  FooterComponent,
-  ToolboxComponent
+  FooterComponent
 } from './';
 
 const sharedComponents = [
   HeaderComponent,
-  FooterComponent,
-  ToolboxComponent
+  FooterComponent
 ];
 
 

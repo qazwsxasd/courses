@@ -1,4 +1,5 @@
-export interface ICourse {
+export interface CourseShape {
+  id: number;
   name: string;
   description?: string;
   startDate: string;
@@ -6,20 +7,15 @@ export interface ICourse {
   duration?: number;
 }
 
-export class Course implements ICourse {
+export class Course implements CourseShape {
   constructor(
     public id: number,
     public name: string,
-    public startDate: string,    
+    public startDate: string,
     public endDate?: string,
-    public description?: string,    
+    public description?: string,
     public duration?: number
-  ) { 
-    this.id = 0;
-    this.name = '';
-    this.startDate = '';
-    this.endDate = '';
-    this.description = '';
-    this.duration = -1;
-   }
+  ) {}
+
+  // get id() { return this.id++; }
 }
