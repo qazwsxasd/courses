@@ -10,13 +10,18 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CoreModule } from './core/core.module';
 import { LoginModule } from './modules/login/login.module';
 import { MainModule } from './modules/main/main.module';
+import { SharedModule } from './shared/shared.module';
 
 import { AppComponent } from './app.component';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
+
+import { AppRoutingModule } from './app.routing.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -25,12 +30,14 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     NoopAnimationsModule,
     MatDialogModule,
+    AppRoutingModule,
 
     CoreModule,
+    SharedModule,
     LoginModule,
     MainModule
   ],
-  // schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [  ],
   exports: [  ],
   bootstrap: [AppComponent]

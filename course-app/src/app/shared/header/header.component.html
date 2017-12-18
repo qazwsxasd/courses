@@ -3,12 +3,12 @@
     <a class="header-logo">
       <img class="logo-img" src="assets/logo.svg" alt="course-app logo">
     </a>
-    <div *ngIf="isLogined">
+    <div *ngIf="isLogined()">
       breadcrums
     </div>
     <div class="header-login">
       <p>hello, {{username}}</p>
-      <a class="login" href="#" (click)="toggleLogin()">{{ isLogined ? 'logout' : 'login'}}</a>
+      <a class="login" href="#" (click)="toggleLogin($event)">{{ isLogined() ? 'logout' : 'login'}}</a>
     </div>
   </div>
 </header>

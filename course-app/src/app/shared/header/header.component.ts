@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../../core/auth/auth.service';
 
@@ -7,30 +7,28 @@ import { AuthService } from '../../core/auth/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
   username: string;
-  isLogined: boolean;
 
-  constructor(private authService: AuthService) {
-    this.isLogined = false;
-    this.username = '';
-   }
+  constructor(
+    private authService: AuthService
+  ) {  }
 
   ngOnInit() {
     this.username = this.authService.getUserInfo().username;
-    this.authService.isAuthenticated((res) => {
-      this.isLogined = res.logined;
-      this.username = res.user;
-    });
   }
 
-  toggleLogin(): void {
-    this.isLogined
-    ? this.authService.logout()
-    : this.authService.login({ name: 'John', password: 'sdfWD23s' });
+  isLogined(): boolean {
+    return this.authService.isAuthenticated();
   }
 
-  ngOnDestroy() {
-    this.authService.clearChanel();
+  toggleLogin(event: any): void {
+    event.preventDefault();
+    if (this.isLogined()) {
+      this.authService.logout();
+      this.username = this.authService.getUserInfo().username;
+    } else {
+      this.authService.login({ name: 'John', password: 'sdfWD23s' });
+    }
   }
 }

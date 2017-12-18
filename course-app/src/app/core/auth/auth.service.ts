@@ -1,4 +1,5 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 export interface AuthUser {
     username: string;
@@ -10,61 +11,32 @@ export interface UserInfo {
     password: string;
 }
 
-type LoginEvent = { user: string, logined: boolean };
-
-//MOCK
-const USER: AuthUser = { username: 'John', token: 'sdfWD23s' };
-const INIT_USER: LoginEvent = { user: 'guest', logined: false };
+const KEY = 'user';
 
 @Injectable()
 export class AuthService {
-    private isLogined: EventEmitter<LoginEvent> = new EventEmitter;
-    constructor() {
-        this.setAuthenticated(INIT_USER);
-    }
+    constructor(
+      private localStorageService: LocalStorageService
+    ) { }
 
     login(user: UserInfo) { // stores fake user info and token to local storage
-        // should be post
-        return Promise.resolve(USER)
-            .then(response => {
-                if (response && response.token) {
-                    const userData: AuthUser = { username: user.name, token: response.token};
-                    localStorage.setItem('user', JSON.stringify(userData));
-                    this.setAuthenticated({ user: user.name, logined: true});
-                }
-            })
-            .catch(this.handleError);        
+      this.localStorageService.setItem(KEY, JSON.stringify(user));
     }
 
-    logout() { // wipes fake user info and token from local storage 
-        localStorage.removeItem('user');
-        this.setAuthenticated(INIT_USER);
+    logout() { // wipes fake user info and token from local storage
+      this.localStorageService.removeItem(KEY);
     }
 
     getUserInfo() { //  returns user login
-        const userInfo = localStorage.getItem('user');
-        if (userInfo) {
-            return { username: JSON.parse(userInfo).username };
-        } else {
-            return { username: 'guest' };
-        }
-    }
-    
-    isAuthenticated(callback: (event: LoginEvent) => void): void {
-        this.isLogined.subscribe(callback);
+      const userInfo = this.localStorageService.getItem(KEY);
+      if (userInfo) {
+          return { username: JSON.parse(userInfo).name };
+      } else {
+          return { username: 'guest' };
+      }
     }
 
-    clearChanel(): void {
-        this.isLogined.unsubscribe();
-    }
-
-    private setAuthenticated(event: LoginEvent) {
-        this.isLogined.emit(event);
-    }
-
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error);
-        this.setAuthenticated(INIT_USER);
-        return Promise.reject(error.message || error);
+    isAuthenticated(): boolean {
+      return this.getUserInfo().username === 'guest' ? false : true;
     }
 }

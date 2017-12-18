@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { Course } from '../../../../core/models/course.model';
+import { Course, CourseShape } from '../../../../core/models/course.model';
 import { MOCK_DATA } from './mock_data';
 
 // const courseListPromise = Promise.resolve(MOCK_DATA);
@@ -32,12 +32,14 @@ export class CourseListService {
     );
   }
 
-  addItemToCourseList(item: Course): void {
+  addItemToCourseList(item: CourseShape): void {
     this.courses.push(new Course(
-        item.id,
-        item.name,
-        item.startDate
-    ));
+      item.id,
+      item.name,
+      item.startDate,
+      item.endDate,
+      item.description,
+      item.duration));
   }
 
   updateCourse(item: Course): void {
@@ -62,9 +64,4 @@ export class CourseListService {
   clear(): void {
     this.courses = [];
   }
-
-  // private handleError(error: any): Promise<any> {
-  //   console.error('An error occurred', error);
-  //   return Promise.reject(error.message || error);
-  // }
 }
