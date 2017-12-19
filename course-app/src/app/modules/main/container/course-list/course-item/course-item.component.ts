@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Course } from '../../../../../core/models/course.model';
 
@@ -13,10 +13,11 @@ export class CourseItemComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onDelete(item: Course) {
     this.deleteCourse.emit(item);
   }
+
+  public get topRated() { return this.item.rate > 4.7; }
 }

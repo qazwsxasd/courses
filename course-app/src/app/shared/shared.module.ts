@@ -1,22 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import {
   HeaderComponent,
-  FooterComponent
+  FooterComponent,
 } from './';
 
 const sharedComponents = [
   HeaderComponent,
-  FooterComponent
+  FooterComponent,
 ];
 
 
 @NgModule({
   declarations: [
-    ...sharedComponents
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +26,16 @@ const sharedComponents = [
     ReactiveFormsModule,
   ],
   exports: [
-   ...sharedComponents
+    HeaderComponent,
+    FooterComponent,
   ]
 })
-export class SharedModule { }
+
+export class SharedModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule,
+      providers: [] // if ever
+    };
+  }
+}

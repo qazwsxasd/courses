@@ -1,12 +1,12 @@
-<div class="item">
+<div class="item" [styled]="item.startDate">
   <div class="item-description">
     <div class="item-area">
       <span class="item-title">Video course: </span>
-      <span class="item-value">{{ item.name }}</span>
+      <span class="item-value">{{ item.name | uppercase }}</span>
     </div>
     <div class="item-area">
       <span class="item-title">Duration: </span>
-      <span class="item-value">{{ item.duration }}</span>
+      <span class="item-value" [ngClass]="{'top-rated': topRated}">{{ item.duration | durationFormat }}</span>
     </div>
     <div class="item-area">
       <span class="item-value">{{ item.startDate | date }}</span>

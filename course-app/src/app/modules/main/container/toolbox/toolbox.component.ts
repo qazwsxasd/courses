@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ContainerCommunicationService } from '../container-communication.service';
 
 @Component({
   selector: 'app-toolbox',
@@ -8,10 +9,12 @@ import { Component } from '@angular/core';
 export class ToolboxComponent {
   findField: string;
 
-  constructor() { console.log('constructor'); }
+  constructor(
+    private containerCommunicationService: ContainerCommunicationService
+  ) { }
 
   onFind() {
     console.log(this.findField);
+    this.containerCommunicationService.setSearchField(this.findField);
   }
-
 }
