@@ -1,11 +1,4 @@
 mentorship/courses 
 
-#### task 3: Modules and Services ####
+#### task 4: Directive and pipe ####
 
-
-
--refactored app structure;
-
--add auth service; use local storage;
--add course list service;
--add dialog service;
