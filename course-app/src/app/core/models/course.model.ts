@@ -15,7 +15,7 @@ export class Course implements CourseShape {
     public endDate?: string,
     public description?: string,
     public duration?: number,
-    public rate?: number
+    public rate: number = 0
   ) {}
 
   // get id() { return this.id++; }
