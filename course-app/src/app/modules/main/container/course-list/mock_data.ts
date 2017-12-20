@@ -69,7 +69,7 @@ export const MOCK_DATA =
   "description": "ut suscipit a feugiat et",
   "startDate": "2017-03-17T19:16:16Z",
   "endDate": "12/14/2017",
-  "duration": 45
+  "duration": 45,
   "rate": 4.56
 }, {
   "id": 10,
