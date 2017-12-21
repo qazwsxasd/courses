@@ -21,3 +21,5 @@ body {
   min-height: 100%;
   font-family: "Helvetica Neue", Arial, sans-serif;
 }
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";

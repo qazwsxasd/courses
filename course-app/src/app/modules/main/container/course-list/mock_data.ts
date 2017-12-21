@@ -6,7 +6,7 @@ export const MOCK_DATA =
   "startDate": "2017-12-27T18:50:34Z",
   "endDate": "10/17/2018",
   "duration": 79,
-  "rate": 4.55
+  "rate": false
 }, {
   "id": 2,
   "name": "primis in faucibus",
@@ -14,7 +14,7 @@ export const MOCK_DATA =
   "startDate": "2017-12-12T09:09:50Z",
   "endDate": "10/14/2018",
   "duration": 84,
-  "rate": 4.15
+  "rate": false
 }, {
   "id": 3,
   "name": "congue elementum in",
@@ -22,7 +22,7 @@ export const MOCK_DATA =
   "startDate": "2017-05-11T03:56:06Z",
   "endDate": "12/25/2017",
   "duration": 83,
-  "rate": 4.98
+  "rate": true
 }, {
   "id": 4,
   "name": "donec vitae nisi",
@@ -30,7 +30,7 @@ export const MOCK_DATA =
   "startDate": "2017-04-13T00:38:04Z",
   "endDate": "10/23/2017",
   "duration": 44,
-  "rate": 4.21
+  "rate": false
 }, {
   "id": 5,
   "name": "vivamus",
@@ -38,7 +38,7 @@ export const MOCK_DATA =
   "startDate": "2017-08-20T22:14:29Z",
   "endDate": "10/13/2017",
   "duration": 55,
-  "rate": 4.12
+  "rate": false
 }, {
   "id": 6,
   "name": "nunc",
@@ -46,7 +46,7 @@ export const MOCK_DATA =
   "startDate": "2017-06-04T04:34:12Z",
   "endDate": "12/3/2017",
   "duration": 58,
-  "rate": 3.98
+  "rate": false
 }, {
   "id": 7,
   "name": "mus etiam vel augue",
@@ -54,7 +54,7 @@ export const MOCK_DATA =
   "startDate": "2017-05-02T13:03:46Z",
   "endDate": "11/30/2017",
   "duration": 51,
-  "rate": 4.12
+  "rate": false
 }, {
   "id": 8,
   "name": "penatibus",
@@ -62,7 +62,7 @@ export const MOCK_DATA =
   "startDate": "2017-07-23T07:51:56Z",
   "endDate": "10/9/2017",
   "duration": 81,
-  "rate": 4.76
+  "rate": true
 }, {
   "id": 9,
   "name": "arcu sed",
@@ -70,7 +70,7 @@ export const MOCK_DATA =
   "startDate": "2017-03-17T19:16:16Z",
   "endDate": "12/14/2017",
   "duration": 45,
-  "rate": 4.56
+  "rate": false
 }, {
   "id": 10,
   "name": "nascetur ridiculus mus",
@@ -78,7 +78,7 @@ export const MOCK_DATA =
   "startDate": "2017-05-23T07:18:45Z",
   "endDate": "11/22/2017",
   "duration": 92,
-  "rate": 4.85
+  "rate": true
 }, {
   "id": 11,
   "name": "interdum in ante vestibulum",
@@ -86,7 +86,7 @@ export const MOCK_DATA =
   "startDate": "2017-04-11T02:55:35Z",
   "endDate": "12/30/2017",
   "duration": 100,
-  "rate": 4.12
+  "rate": false
 }, {
   "id": 12,
   "name": "ut mauris",
@@ -94,5 +94,5 @@ export const MOCK_DATA =
   "startDate": "2017-05-18T01:00:54Z",
   "endDate": "11/1/2017",
   "duration": 83,
-  "rate": 4.55
+  "rate": false
 }]

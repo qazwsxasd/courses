@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { CourseListService } from './container/course-list/course-list.service';
-import { ContainerCommunicationService } from './container/container-communication.service';
 
 import {
   ContainerComponent,
@@ -14,7 +13,6 @@ import {
   StyledDirective,
   DurationFormatPipe,
   OrderItemsByPipe,
-  FilterSearchPipe
 } from './';
 
 const mainComponents = [
@@ -25,7 +23,6 @@ const mainComponents = [
   StyledDirective,
   DurationFormatPipe,
   OrderItemsByPipe,
-  FilterSearchPipe
 ];
 
 @NgModule({
@@ -38,7 +35,7 @@ const mainComponents = [
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [CourseListService, ContainerCommunicationService],
+  providers: [CourseListService],
   exports: [
     ...mainComponents
   ]

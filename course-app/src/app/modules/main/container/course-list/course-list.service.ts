@@ -36,6 +36,7 @@ export class CourseListService {
     this.courses.push(new Course(
       item.id,
       item.name,
+      item.rate,
       item.startDate,
       item.endDate,
       item.description,

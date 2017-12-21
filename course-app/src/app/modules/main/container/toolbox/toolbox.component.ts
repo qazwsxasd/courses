@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { ContainerCommunicationService } from '../container-communication.service';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-toolbox',
@@ -8,13 +7,11 @@ import { ContainerCommunicationService } from '../container-communication.servic
 })
 export class ToolboxComponent {
   findField: string;
+  @Output() searchText: EventEmitter<string> = new EventEmitter();
 
-  constructor(
-    private containerCommunicationService: ContainerCommunicationService
-  ) { }
+  constructor() { }
 
   onFind() {
-    console.log(this.findField);
-    this.containerCommunicationService.setSearchField(this.findField);
+    this.searchText.emit(this.findField);
   }
 }

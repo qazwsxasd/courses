@@ -18,6 +18,4 @@ export class CourseItemComponent implements OnInit {
   onDelete(item: Course) {
     this.deleteCourse.emit(item);
   }
-
-  public get topRated() { return this.item.rate > 4.7; }
 }
