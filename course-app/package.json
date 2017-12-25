@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=3700",
-    "start:aot": "ng serve --port=3800 --prod --aot",
+    "start:aot": "ng serve --port=3800 --aot",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
