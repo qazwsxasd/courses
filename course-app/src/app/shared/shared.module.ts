@@ -16,8 +16,7 @@ const sharedComponents = [
 
 @NgModule({
   declarations: [
-    HeaderComponent,
-    FooterComponent,
+    sharedComponents
   ],
   imports: [
     BrowserModule,
@@ -26,8 +25,7 @@ const sharedComponents = [
     ReactiveFormsModule,
   ],
   exports: [
-    HeaderComponent,
-    FooterComponent,
+    sharedComponents
   ]
 })
 

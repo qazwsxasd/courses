@@ -1,3 +1,6 @@
 export * from './header/header.component';
 export * from './footer/footer.component';
-export * from '../modules/main/container/course-list/course-item/border.directive';
+export * from './directives/border.directive';
+export * from './pipes/duration.pipe';
+export * from './pipes/order-by.pipe';
+export * from './pipes/filter-search.pipe';

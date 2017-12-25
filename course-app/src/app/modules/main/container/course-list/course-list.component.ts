@@ -4,7 +4,7 @@ import 'rxjs/add/operator/filter';
 import { CourseListService } from './course-list.service';
 import { MatDialogService } from '../../../../core/dialogs/matDialog.service';
 
-import { FilterSearchPipe } from './filter-search.pipe';
+import { FilterSearchPipe } from '../../../../shared/pipes/filter-search.pipe';
 
 import { Course } from '../../../../core/models/course.model';
 

@@ -6,13 +6,16 @@ import { NgModule } from '@angular/core';
 import { CourseListService } from './container/course-list/course-list.service';
 
 import {
+  DurationFormatPipe,
+  OrderItemsByPipe,
+  StyledDirective
+} from '../../shared';
+
+import {
   ContainerComponent,
   CourseListComponent,
   CourseItemComponent,
   ToolboxComponent,
-  StyledDirective,
-  DurationFormatPipe,
-  OrderItemsByPipe,
 } from './';
 
 const mainComponents = [
@@ -20,9 +23,9 @@ const mainComponents = [
   CourseListComponent,
   CourseItemComponent,
   ToolboxComponent,
-  StyledDirective,
   DurationFormatPipe,
   OrderItemsByPipe,
+  StyledDirective
 ];
 
 @NgModule({
