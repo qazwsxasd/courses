@@ -8,7 +8,8 @@ import { CourseListService } from './container/course-list/course-list.service';
 import {
   DurationFormatPipe,
   OrderItemsByPipe,
-  StyledDirective
+  StyledDirective,
+  FilterSearchPipe
 } from '../../shared';
 
 import {
@@ -25,7 +26,8 @@ const mainComponents = [
   ToolboxComponent,
   DurationFormatPipe,
   OrderItemsByPipe,
-  StyledDirective
+  StyledDirective,
+  FilterSearchPipe
 ];
 
 @NgModule({
