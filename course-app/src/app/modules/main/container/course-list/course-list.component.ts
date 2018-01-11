@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/filter';
 
 import { CourseListService } from './course-list.service';
@@ -14,11 +16,12 @@ import { Course } from '../../../../core/models/course.model';
   styleUrls: ['./course-list.component.scss'],
   providers: [FilterSearchPipe]
 })
-export class CourseListComponent implements OnInit {
+export class CourseListComponent implements OnInit, OnDestroy {
   courseList: Course[];
   filteredList: Course[];
   filterField: string;
   isAsc: boolean;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
     private courseListService: CourseListService,
@@ -46,5 +49,10 @@ export class CourseListComponent implements OnInit {
 
   handleFilter(s: string): void {
     this.filteredList = this.filterSearchPipe.transform(this.courseList, s);
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

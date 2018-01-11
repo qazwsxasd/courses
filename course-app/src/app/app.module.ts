@@ -10,6 +10,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CoreModule } from './core/core.module';
 import { LoginModule } from './modules/login/login.module';
 import { MainModule } from './modules/main/main.module';
+import { EditModule } from './modules/edit/edit.module';
 import { SharedModule } from './shared/shared.module';
 
 import { AppComponent } from './app.component';
@@ -35,7 +36,8 @@ import { AppRoutingModule } from './app.routing.module';
     CoreModule,
     SharedModule,
     LoginModule,
-    MainModule
+    MainModule,
+    EditModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [  ],

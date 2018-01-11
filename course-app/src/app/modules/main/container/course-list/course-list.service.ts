@@ -1,29 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { from } from 'rxjs/observable/from';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+
+import * as moment from 'moment';
 
 import { Course, CourseShape } from '../../../../core/models/course.model';
 import { MOCK_DATA } from './mock_data';
 
-// const courseListPromise = Promise.resolve(MOCK_DATA);
 
 @Injectable()
 export class CourseListService {
-  courses: Course[] = MOCK_DATA;
+  courses: any[] = MOCK_DATA;
   error: string;
 
   constructor() { }
 
-//   fakeFetchCoursesList(): Promise<Course[]> {
-//     return Promise.resolve(MOCK_DATA);
-//   }
-
-  //  getCoursesList(): Course[] {
-  //   return this.courses;
-  // }
-
   getCoursesList(): Observable<Course[]> {
-    return of(this.courses);
+    return of(this.courses)
+      .map(response => {
+        // const courses: Course[] = response as Course[];
+        response.map(item => {
+          const result = Object.assign(item, { startDate: item.start });
+          delete result.start;
+          return result;
+        });
+        return response;
+        // return response.filter(item => moment(item.startDate) > moment().subtract(14, 'days'));
+      })
+      // .filter(item => item => moment(item.startDate) > moment().subtract(14, 'days'))
+      // .map(items => items.filter(item => moment(item.startDate) > moment().subtract(14, 'days')));
   }
 
   getCourseById(id: number) {
@@ -33,14 +41,9 @@ export class CourseListService {
   }
 
   addItemToCourseList(item: CourseShape): void {
-    this.courses.push(new Course(
-      item.id,
-      item.name,
-      item.rate,
-      item.startDate,
-      item.endDate,
-      item.description,
-      item.duration));
+    const obj = Object.assign({}, item, { start: item.startDate });
+    delete obj.startDate; // ?
+    this.courses.push(obj);
   }
 
   updateCourse(item: Course): void {
