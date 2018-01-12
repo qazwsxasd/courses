@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/filter';
 
@@ -18,7 +19,7 @@ import { Course } from '../../../../core/models/course.model';
 })
 export class CourseListComponent implements OnInit, OnDestroy {
   courseList: Course[];
-  filteredList: Course[];
+  filteredList: Observable<Course[]>;
   filterField: string;
   isAsc: boolean;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -31,10 +32,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.filterField = 'startDate';
-    this.courseListService.getCoursesList().subscribe(courses => {
-      this.courseList = courses;
-      this.filteredList = courses;
-    });
+    this.filteredList = this.courseListService.getCoursesList();
   }
 
   deletedCourse(item: Course): void {
@@ -48,7 +46,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   handleFilter(s: string): void {
-    this.filteredList = this.filterSearchPipe.transform(this.courseList, s);
+    this.filterSearchPipe.transform(this.courseList, s);
   }
 
   ngOnDestroy(): void {

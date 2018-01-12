@@ -1,0 +1,55 @@
+.form {
+  width: 30%;
+  min-width: 400px;
+  margin: 0 auto;
+  &-row {
+    margin: 10px 0;
+    display: flex;
+    align-items: flex-start;
+
+    &-title {
+      flex-basis: 150px;
+      margin-right: 30px;
+      text-align: right;
+    }
+
+    &-data {
+      flex-grow: 2;
+      width: 100%;
+      max-width: 250px;
+    }
+
+    &-input {
+      padding: 5px;
+    }
+
+    &-duration {
+      width: 50px;
+    }
+
+    &-author {
+      flex-shrink: 2;
+      min-height: 70px;
+    }
+
+    .author {
+      &-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    &-btns {
+      text-align: center;
+
+      &-submit {
+        width: 100%;
+      }
+    }
+
+    &-btn {
+      margin: 5px;
+    }
+  }
+}

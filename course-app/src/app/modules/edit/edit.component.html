@@ -1,3 +1,41 @@
 <div>
-  sdafj
+  <form class="form">
+    <div class="form-row">
+      <label for="rowTitle" class="form-row-title">Title</label>
+      <input class="form-row-data form-row-input" type="text" id="rowTitle" />
+    </div>
+    <div class="form-row">
+      <label for="rowDescription" class="form-row-title">Description</label>
+      <textarea class="form-row-data form-row-input" type="text" id="rowDescription"></textarea>
+    </div>
+    <div class="form-row">
+      <label for="rowDate" class="form-row-title">Date</label>
+      <input class="form-row-data form-row-input" type="text" id="rowDate" />
+    </div>
+    <div class="form-row">
+      <label for="rowDuration" class="form-row-title">Duartion</label>
+      <div class="form-row-data">
+        <input class="form-row-input form-row-duration" type="text" id="rowDuration" />
+        <span class="form-row-duration-format">format</span>
+      </div>
+    </div>
+    <div class="form-row">
+      <label for="rowAuthors1" class="form-row-title">Authors</label>
+      <div class="form-row-data author-container">
+        <textarea class="form-row-input form-row-author" type="text" id="rowAuthors1"></textarea>
+        <div class="form-row-btns">
+          <button class="form-row-btn">&larr;</button>
+          <button class="form-row-btn">&rarr;</button>
+        </div>
+        <textarea class="form-row-input form-row-author" type="text" id="rowAuthors2"></textarea>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-row-btns form-row-btns-submit">
+        <button class="form-row-btn">Save</button>
+        <button class="form-row-btn">Cancel</button>
+      </div>
+    </div>
+  </form>
 </div>
