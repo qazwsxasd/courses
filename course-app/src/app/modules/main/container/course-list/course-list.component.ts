@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
+import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/filter';
@@ -27,7 +28,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
   constructor(
     private courseListService: CourseListService,
     private matDialogService: MatDialogService,
-    private filterSearchPipe: FilterSearchPipe,
+    private filterSearchPipe: FilterSearchPipe
   ) { }
 
   ngOnInit() {
@@ -45,8 +46,8 @@ export class CourseListComponent implements OnInit, OnDestroy {
     .subscribe(confirmed => this.courseListService.deleteCourse(item));
   }
 
-  handleFilter(s: string): void {
-    this.filterSearchPipe.transform(this.courseList, s);
+  handleFilter(courseList, s: string): void {
+    this.filteredList = this.filterSearchPipe.transform(courseList, s);
   }
 
   ngOnDestroy(): void {

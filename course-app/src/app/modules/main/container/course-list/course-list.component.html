@@ -1,4 +1,4 @@
-<app-toolbox (searchText)="handleFilter($event)"></app-toolbox>
+<app-toolbox (searchText)="handleFilter(courseList, $event)"></app-toolbox>
 <div class="course-list_empty" *ngIf="courseList && !courseList.length">No Data. Feel free to add new course.</div>
 <ul class="course-list" *ngIf="(filteredList | async) as courseList">
   <li *ngFor="let course of courseList | orderItemsBy : filterField : isAsc">

@@ -18,11 +18,9 @@ export class LoginComponent {
 
   loginUser(user: UserInfo) {
     this.authService.login(user);
-    console.log(user);
   }
 
   isLogined(): boolean {
     return this.authService.isAuthenticated();
-
   }
 }
