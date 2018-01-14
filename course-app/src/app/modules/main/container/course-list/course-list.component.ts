@@ -46,8 +46,8 @@ export class CourseListComponent implements OnInit, OnDestroy {
     .subscribe(confirmed => this.courseListService.deleteCourse(item));
   }
 
-  handleFilter(courseList, s: string): void {
-    this.filteredList = this.filterSearchPipe.transform(courseList, s);
+  handleFilter(s: string): void {
+    this.filteredList = this.filterSearchPipe.transform(this.courseList, s);
   }
 
   ngOnDestroy(): void {
