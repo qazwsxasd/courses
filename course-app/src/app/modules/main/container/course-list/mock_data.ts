@@ -3,15 +3,15 @@ export const MOCK_DATA =
   "id": 1,
   "name": "nam dui proin leo",
   "description": "id luctus nec molestie sed justo",
-  "start": "2017-12-27T18:50:34Z",
-  "endDate": "10/17/2018",
+  "start": "2018-01-16T18:50:34Z",
+  "endDate": "11/17/2018",
   "duration": 79,
   "rate": false
 }, {
   "id": 2,
   "name": "primis in faucibus",
   "description": "tortor risus dapibus augue",
-  "start": "2017-12-12T09:09:50Z",
+  "start": "2018-01-11T09:09:50Z",
   "endDate": "10/14/2018",
   "duration": 84,
   "rate": false
@@ -27,8 +27,8 @@ export const MOCK_DATA =
   "id": 4,
   "name": "donec vitae nisi",
   "description": "sit amet eros suspendisse accumsan",
-  "start": "2017-04-13T00:38:04Z",
-  "endDate": "10/23/2017",
+  "start": "2018-04-13T00:38:04Z",
+  "endDate": "10/23/2018",
   "duration": 44,
   "rate": false
 }, {

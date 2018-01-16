@@ -1,14 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
-import { of } from 'rxjs/observable/of';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/filter';
 
 import { CourseListService } from './course-list.service';
 import { MatDialogService } from '../../../../core/dialogs/matDialog.service';
-
-import { FilterSearchPipe } from '../../../../shared/pipes/filter-search.pipe';
 
 import { Course } from '../../../../core/models/course.model';
 
@@ -16,19 +11,18 @@ import { Course } from '../../../../core/models/course.model';
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],
-  providers: [FilterSearchPipe]
 })
-export class CourseListComponent implements OnInit, OnDestroy {
+export class CourseListComponent implements OnInit {
   courseList: Course[];
   filteredList: Observable<Course[]>;
   filterField: string;
+  private queryText: string;
   isAsc: boolean;
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
     private courseListService: CourseListService,
     private matDialogService: MatDialogService,
-    private filterSearchPipe: FilterSearchPipe
+    // private filterSearchPipe: FilterSearchPipe
   ) { }
 
   ngOnInit() {
@@ -47,11 +41,6 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   handleFilter(s: string): void {
-    this.filteredList = this.filterSearchPipe.transform(this.courseList, s);
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.queryText = s;
   }
 }

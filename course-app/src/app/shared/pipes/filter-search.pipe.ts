@@ -7,24 +7,12 @@ import { of } from 'rxjs/observable/of';
 })
 
 export class FilterSearchPipe implements PipeTransform {
-  transform(items: any[], searchText: string): Observable<any[]> {
-    if (!items) { return of([]); }
-    if (!searchText) { return of(items); }
+  transform(items: any[], searchText: string): any[] {
+    if (!items) { return []; }
+    if (!searchText) { return items; }
     searchText = searchText.toLowerCase();
-    return of(items.filter( it => {
+    return items.filter( it => {
       return it.name.toLowerCase().includes(searchText);
-    }));
+    });
   }
 }
-
-
-// export class FilterSearchPipe implements PipeTransform {
-//   transform(items: any[], searchText: string): any[] {
-//     if (!items) { return []; }
-//     if (!searchText) { return items; }
-//     searchText = searchText.toLowerCase();
-//     return items.filter( it => {
-//       return it.name.toLowerCase().includes(searchText);
-//     });
-//   }
-// }
