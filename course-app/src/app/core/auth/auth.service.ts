@@ -17,20 +17,27 @@ const KEY = 'user';
 
 @Injectable()
 export class AuthService {
-  // private subject = new Subject<any>();
-  private subject: BehaviorSubject<any> = new BehaviorSubject<any>({username: 'guest'});
+  private subject: BehaviorSubject<any> = new BehaviorSubject<any>({ username: '' });
+  isLogined: Subject<boolean> = new Subject<boolean>();
   constructor(
+    // TODO check if localStorage is available and set a proper service; refactor constructor
     private localStorageService: LocalStorageService
-  ) { }
+  ) {
+    if (this.getUserInfo().username) {
+      this.logout(false);
+    }
+  }
 
   login(user: UserInfo) { // stores fake user info and token to local storage
     this.localStorageService.setItem(KEY, JSON.stringify(user));
     this.channelPublish(this.getUserInfo());
   }
 
-  logout() { // wipes fake user info and token from local storage
+  logout(send = true) { // wipes fake user info and token from local storage
     this.localStorageService.removeItem(KEY);
-    this.channelPublish(this.getUserInfo());
+    if (send) {
+      this.channelPublish(this.getUserInfo());
+    }
   }
   channelPublish(data) {
     this.subject.next(data);
@@ -45,11 +52,11 @@ export class AuthService {
     if (userInfo) {
         return { username: JSON.parse(userInfo).name };
     } else {
-        return { username: 'guest' };
+        return { username: '' };
     }
   }
 
-  isAuthenticated(): boolean {
-    return !(this.getUserInfo().username === 'guest');
+  isAuthenticated(): string {
+    return this.getUserInfo().username || '';
   }
 }

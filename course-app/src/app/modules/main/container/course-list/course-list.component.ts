@@ -22,7 +22,6 @@ export class CourseListComponent implements OnInit {
   constructor(
     private courseListService: CourseListService,
     private matDialogService: MatDialogService,
-    // private filterSearchPipe: FilterSearchPipe
   ) { }
 
   ngOnInit() {

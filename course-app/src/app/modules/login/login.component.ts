@@ -20,7 +20,7 @@ export class LoginComponent {
     this.authService.login(user);
   }
 
-  isLogined(): boolean {
-    return this.authService.isAuthenticated();
-  }
+  // isLogined(): boolean {
+  //   return !!this.authService.isAuthenticated();
+  // }
 }

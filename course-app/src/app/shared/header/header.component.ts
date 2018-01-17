@@ -8,6 +8,7 @@ import { AuthService } from '../../core/auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   private username: string;
+  private welcomeString: string = 'guest';
   constructor(
     private authService: AuthService
   ) {  }
@@ -17,7 +18,8 @@ export class HeaderComponent implements OnInit {
   }
 
   isLogined(): boolean {
-    return this.username !== 'guest';
+    console.log(this.authService.isAuthenticated());
+    return !!this.authService.isAuthenticated().length;
   }
 
   toggleLogin(event: any): void {
@@ -27,5 +29,9 @@ export class HeaderComponent implements OnInit {
     } else {
       this.authService.login({ name: 'John', password: 'sdfWD23s' });
     }
+  }
+
+  private get Welcome() {
+    return this.username || this.welcomeString;
   }
 }
