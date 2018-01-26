@@ -36,7 +36,11 @@ export class CourseListComponent implements OnInit {
       icon: ''
     })
     .filter(confirmed => confirmed)
-    .subscribe(confirmed => this.courseListService.deleteCourse(item));
+    .subscribe(() => {
+      this.courseListService.deleteCourse(item).subscribe(() => {
+        this.filteredList = this.courseListService.getCoursesList();
+      });
+    });
   }
 
   handleFilter(s: string): void {

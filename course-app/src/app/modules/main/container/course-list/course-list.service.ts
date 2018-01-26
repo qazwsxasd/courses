@@ -1,45 +1,42 @@
 import { Injectable } from '@angular/core';
+
+import { HttpEvent, HttpErrorResponse, HttpHandler, HttpRequest, HttpClient,
+  HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { from } from 'rxjs/observable/from';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeAll';
 import 'rxjs/add/operator/toArray';
 
 import * as moment from 'moment';
 
 import { Course, CourseShape } from '../../../../core/models/course.model';
-import { MOCK_DATA } from './mock_data';
+
+const URL = 'http://localhost:3000/';
 
 
 @Injectable()
 export class CourseListService {
-  courses: any[] = MOCK_DATA;
-  error: string;
-
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getCoursesList(): Observable<Course[]> {
-    // const fourteenDaysDiff = moment().subtract(14, 'days');
-    // of(MOCK_DATA as any[])
-    //   .map(response => response.map(({id, name, rate, start, endDate, description, duration}) => {
-    //     return new Course(id, name, rate, start, endDate, description, duration);
-    //   }))
-    //   .map(item => item.filter(el => moment(el.startDate) > fourteenDaysDiff))
-    //   .subscribe(courses => this.courses = courses);
-    // return of(this.courses);
-
     const fourteenDaysDiff = moment().subtract(14, 'days');
 
-    return from(MOCK_DATA as any[])
-      .map(({ id, name, rate, start, endDate, description, duration }) => new Course(id, name, rate, start, endDate, description, duration))
-      .filter(item => moment(item.startDate) > fourteenDaysDiff)
-      // .map(item => of(item))
-      // .mergeAll()
-      .toArray()
-      .map(res => this.courses = res);
-
+    return this.http.get<any[]>(`${URL}courses`)
+      .map(response => {
+        const result = response
+          .map(({ id, name, rate, start, endDate, description, duration }) => {
+            return new Course(id, name, rate, start, endDate, description, duration);
+          })
+          .filter(el => {
+            return moment(el.startDate) > fourteenDaysDiff;
+          });
+         return result;
+      });
   }
 
   getCourseById(id: number) {
@@ -49,31 +46,25 @@ export class CourseListService {
   }
 
   addItemToCourseList(item: CourseShape): void {
-    const obj = Object.assign({}, item, { start: item.startDate });
-    delete obj.startDate;
-    this.courses.push(obj);
+    this.http.post(`${URL}courses`, JSON.stringify(this.convertDataToBackendFormat(item)));
   }
 
   updateCourse(item: Course): void {
-    this.courses.map(course => {
-        if (course.id === item.id) {
-            Object.assign(course, item);
-        }
-    });
+    this.http.put(`${URL}courses/${item.id}`, JSON.stringify(this.convertDataToBackendFormat(item)));
   }
 
-  deleteCourse(item: Course): void {
-    let index = -1;
-    const finded = this.courses.find(value => value.id === item.id);
-    if (finded) {
-      index = this.courses.indexOf(finded);
-    }
-    if (index > -1) {
-      this.courses.splice(index, 1);
-    }
+  deleteCourse(item: Course): Observable<any> {
+    return this.http.delete(`${URL}courses/${item.id}`);
+
   }
 
   clear(): void {
-    this.courses = [];
+    // this.courses = [];
+  }
+
+  private convertDataToBackendFormat(item: Course): any {
+    const obj = Object.assign({}, item, { start: item.startDate });
+    delete obj.startDate;
+    return obj;
   }
 }

@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class OrderItemsByPipe implements PipeTransform {
   transform<T>(array: T[], field: string, isAsc: boolean = true): T[] {
-    if (!array || !field) {
+    if (!array.length || !field) {
       return array;
     }
     let result: T[] = [];
