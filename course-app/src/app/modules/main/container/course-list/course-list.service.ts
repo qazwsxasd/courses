@@ -16,7 +16,6 @@ import { Course, CourseShape } from '../../../../core/models/course.model';
 
 const URL = 'http://localhost:3000/';
 
-
 @Injectable()
 export class CourseListService {
   constructor(

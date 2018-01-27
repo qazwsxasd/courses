@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/observable/of';
 
 import { CourseListService } from './course-list.service';
 import { MatDialogService } from '../../../../core/dialogs/matDialog.service';
@@ -18,6 +19,9 @@ export class CourseListComponent implements OnInit {
   filterField: string;
   private queryText: string;
   isAsc: boolean;
+  private chunked: Course[];
+  private currentPage = 1;
+  private limit = 3;
 
   constructor(
     private courseListService: CourseListService,
@@ -25,8 +29,10 @@ export class CourseListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.chunked = [];
     this.filterField = 'startDate';
-    this.filteredList = this.courseListService.getCoursesList();
+    // this.filteredList = this.courseListService.getCoursesList();
+    this.appendData();
   }
 
   deletedCourse(item: Course): void {
@@ -38,6 +44,7 @@ export class CourseListComponent implements OnInit {
     .filter(confirmed => confirmed)
     .subscribe(() => {
       this.courseListService.deleteCourse(item).subscribe(() => {
+        // this.appendData();
         this.filteredList = this.courseListService.getCoursesList();
       });
     });
@@ -45,5 +52,19 @@ export class CourseListComponent implements OnInit {
 
   handleFilter(s: string): void {
     this.queryText = s;
+  }
+
+  appendData() {
+    this.courseListService
+      .getCoursesList({
+        _page: this.currentPage,
+        _limit: this.limit
+      })
+      .subscribe(res => {
+          this.chunked.push(...res);
+          this.currentPage++;
+          console.log(this.chunked);
+          this.filteredList = Observable.of(this.chunked);
+      });
   }
 }
