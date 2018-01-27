@@ -23,10 +23,15 @@ export class CourseListService {
     private http: HttpClient
   ) { }
 
-  getCoursesList(): Observable<Course[]> {
+  getCoursesList(data = {}): Observable<Course[]> {
+    let httpParams = new HttpParams();
+    Object.keys(data).forEach(function (key) {
+      httpParams = httpParams.append(key, data[key]);
+    });
+
     const fourteenDaysDiff = moment().subtract(14, 'days');
 
-    return this.http.get<any[]>(`${URL}courses`)
+    return this.http.get<any[]>(`${URL}courses`, { params: data })
       .map(response => {
         const result = response
           .map(({ id, name, rate, start, endDate, description, duration }) => {
