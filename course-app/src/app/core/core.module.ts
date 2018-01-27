@@ -11,6 +11,7 @@ import { SimpleDialogService } from './dialogs/simple-dialog.service';
 import { AuthService } from './auth/auth.service';
 import { LocalStorageService } from './local-storage/local-storage.service';
 import { MatDialogService } from './dialogs/matDialog.service';
+import { LoaderService } from './loader/loader.service';
 
 import { ConfirmDialogComponent } from './dialogs/matDialog.component';
 
@@ -34,6 +35,7 @@ const coreComponents = [
     MatDialogService,
     AuthService,
     LocalStorageService,
+    LoaderService,
     // { provide: 'StorageService', useValue: isPlatformBrowser(PLATFORM_ID) ? LocalStorageService : null }
   ],
   entryComponents: [
