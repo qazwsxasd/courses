@@ -1,12 +1,13 @@
 mentorship/courses 
 
-#### task 6: RxJS ####
+#### task 7: http ####
 
-1. applied observables in course-list.service with .filter, .map and etc. operators
-(filter outdated courses)
+1. json-server
 
-~~2. applied async pipe: course-list.template.html~~ [has ussues]
+2. HttpClient
 
-3. added new mock page adding/editing courses, route '/edit'
+3. interceptor
 
-4. add BehaviourSubject to auth.service
+4. loader
+
+5. loading by chunks
