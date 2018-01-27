@@ -14,10 +14,12 @@ import { LocalStorageService } from './local-storage/local-storage.service';
 import { MatDialogService } from './dialogs/matDialog.service';
 import { HttpConfigService } from './http-config/http-config.service';
 import { LoaderService } from './loader/loader.service';
+import { LoaderComponent } from './loader/loader.component';
 
 import { ConfirmDialogComponent } from './dialogs/matDialog.component';
 
 const coreComponents = [
+  LoaderComponent
   // ConfirmDialogComponent
 ];
 
