@@ -11,3 +11,5 @@ mentorship/courses
 4. loader
 
 5. loading by chunks
+
+6. server-side search
