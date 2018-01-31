@@ -19,5 +19,22 @@ export class Course implements CourseShape {
     public duration?: number
   ) {}
 
-  // get id() { return this.id++; }
 }
+
+// "id": 1,
+//   "name": "nam dui proin leo",
+//   "description": "id luctus nec molestie sed justo",
+//   "start": "2018-01-26T18:50:34Z",
+//   "endDate": "11/17/2018",
+//   "duration": 79,
+//   "rate": false,
+//   "isTopRated": false,
+//   "date": "2017-09-28T04:39:24+00:00",
+//   "authors": [
+//   {
+//     "id": 1370,
+//     "firstName": "Polly",
+//     "lastName": "Sosa"
+//   }
+// ],
+//   "length": 157

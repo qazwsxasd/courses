@@ -23,12 +23,12 @@ export class HttpConfigService implements HttpInterceptor {
           if (ev instanceof HttpResponse) {
             this.loaderService.hide();
           }
+        },
+        (err: any) => {
+          if (err instanceof HttpErrorResponse) {
+            this.loaderService.hide();
+          }
         }
-        // TODO
-        // (err: any) => {
-        //   if (err instanceof HttpErrorResponse) {
-        //   }
-        // }
-        );
+       );
   }
 }

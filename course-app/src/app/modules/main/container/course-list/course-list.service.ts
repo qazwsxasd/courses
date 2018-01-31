@@ -14,7 +14,8 @@ import * as moment from 'moment';
 
 import { Course, CourseShape } from '../../../../core/models/course.model';
 
-const URL = 'http://localhost:3000/';
+const URL = 'http://localhost:3004/';
+const courseRoute = 'courses';
 
 @Injectable()
 export class CourseListService {
@@ -30,7 +31,7 @@ export class CourseListService {
 
     const fourteenDaysDiff = moment().subtract(14, 'days');
 
-    return this.http.get<any[]>(`${URL}courses`, { params: data })
+    return this.http.get<any[]>(`${URL}${courseRoute}`, { params: data })
       .map(response => {
         const result = response
           .map(({ id, name, rate, start, endDate, description, duration }) => {
@@ -50,15 +51,15 @@ export class CourseListService {
   }
 
   addItemToCourseList(item: CourseShape): void {
-    this.http.post(`${URL}courses`, JSON.stringify(this.convertDataToBackendFormat(item)));
+    this.http.post(`${URL}${courseRoute}`, JSON.stringify(this.convertDataToBackendFormat(item)));
   }
 
   updateCourse(item: Course): void {
-    this.http.put(`${URL}courses/${item.id}`, JSON.stringify(this.convertDataToBackendFormat(item)));
+    this.http.put(`${URL}${courseRoute}/${item.id}`, JSON.stringify(this.convertDataToBackendFormat(item)));
   }
 
   deleteCourse(item: Course): Observable<any> {
-    return this.http.delete(`${URL}courses/${item.id}`);
+    return this.http.delete(`${URL}${courseRoute}/${item.id}`);
 
   }
 

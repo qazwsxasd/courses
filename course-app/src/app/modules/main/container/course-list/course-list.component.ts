@@ -45,7 +45,10 @@ export class CourseListComponent implements OnInit {
     .subscribe(() => {
       this.courseListService.deleteCourse(item).subscribe(() => {
         // this.appendData();
-        this.filteredList = this.courseListService.getCoursesList();
+        this.filteredList = this.courseListService.getCoursesList({
+          start: 1,
+          count: this.currentPage - 1 // Math.floor(this.currentPage / this.limit) + this.limit
+        });
       });
     });
   }
@@ -57,12 +60,12 @@ export class CourseListComponent implements OnInit {
   appendData() {
     this.courseListService
       .getCoursesList({
-        _page: this.currentPage,
-        _limit: this.limit
+        start: this.currentPage,
+        count: this.limit
       })
       .subscribe(res => {
           this.chunked.push(...res);
-          this.currentPage++;
+          this.currentPage += this.limit;
           console.log(this.chunked);
           this.filteredList = Observable.of(this.chunked);
       });
