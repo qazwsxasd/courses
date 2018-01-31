@@ -20,7 +20,7 @@ export class CourseListComponent implements OnInit {
   private queryText: string;
   isAsc: boolean;
   private chunked: Course[];
-  private currentPage = 1;
+  private currentPage = 0;
   private limit = 3;
 
   constructor(
@@ -45,22 +45,32 @@ export class CourseListComponent implements OnInit {
     .subscribe(() => {
       this.courseListService.deleteCourse(item).subscribe(() => {
         this.filteredList = this.courseListService.getCoursesList({
-          start: 1,
-          count: this.currentPage - 1 // Math.floor(this.currentPage / this.limit) + this.limit
+          start: 0,
+          count: this.currentPage // Math.floor(this.currentPage / this.limit) + this.limit
         });
       });
     });
   }
 
-  handleFilter(s: string): void {
-    this.queryText = s;
+  handleFilter(s = ''): void {
+    this.queryText = s.toLowerCase();
+    this.courseListService.getCoursesList({
+      start: 0,
+      count: this.currentPage,
+      query: s
+    })
+    .subscribe(res => {
+      this.chunked = res;
+      this.filteredList = Observable.of(this.chunked);
+    });
   }
 
-  appendData() {
+  appendData(start = this.currentPage, count = this.limit, query = this.queryText || '') {
     this.courseListService
       .getCoursesList({
-        start: this.currentPage,
-        count: this.limit
+        start,
+        count,
+        query
       })
       .subscribe(res => {
           this.chunked.push(...res);

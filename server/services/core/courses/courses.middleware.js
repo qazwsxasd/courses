@@ -5,24 +5,34 @@ const url = require('url');
 module.exports = (server) => {
 
 	router.get('/courses', (req, res, next) => {
-		let url_parts = url.parse(req.originalUrl, true),
 
+		const courses = server.db.getState().courses;
+		let url_parts = url.parse(req.originalUrl, true),
 			// query = url_parts.query,
 			query = req.query,
-			from = query.start,
-			to = +query.start + +query.count,
+			from = query.start || 0,
+			to = (+query.start + +query.count) || courses.length,
 			sort = query.sort,
-			queryStr = query.query,
-			courses = server.db.getState().courses;
+			queryStr = query.query;
+
+    	let result = courses;
+
 		console.log(sort);
 		console.log(req.query);
 		console.log(queryStr);
-		if (courses.length < to) {
-			to = courses.length;
+
+		if (queryStr && queryStr.length) {
+			console.log('111111 ', result.length);
+            result = result.filter(item => item.name.includes(queryStr));
 		}
-		courses = courses.slice(from, to);
-		
-		res.json(courses);
+
+		if (result.length < to) {
+			to = result.length;
+		};
+
+    	result = result.slice(from, to);
+
+		res.json(result);
 	});
 	
 	return router;
