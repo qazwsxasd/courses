@@ -29,17 +29,17 @@ export class CourseListService {
       httpParams = httpParams.append(key, data[key]);
     });
 
-    const fourteenDaysDiff = moment().subtract(14, 'days');
+    // const fourteenDaysDiff = moment().subtract(14, 'days');
 
     return this.http.get<any[]>(`${URL}${courseRoute}`, { params: data })
       .map(response => {
         const result = response
-          .map(({ id, name, rate, start, endDate, description, duration }) => {
-            return new Course(id, name, rate, start, endDate, description, duration);
-          })
-          .filter(el => {
-            return moment(el.startDate) > fourteenDaysDiff;
+          .map(({ id, name, isTopRated, date, endDate, description, length }) => {
+            return new Course(id, name, isTopRated, date, endDate, description, length);
           });
+          // .filter(el => {
+          //   return moment(el.startDate) > fourteenDaysDiff;
+          // });
          return result;
       });
   }

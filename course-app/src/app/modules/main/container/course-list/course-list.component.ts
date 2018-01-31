@@ -44,7 +44,6 @@ export class CourseListComponent implements OnInit {
     .filter(confirmed => confirmed)
     .subscribe(() => {
       this.courseListService.deleteCourse(item).subscribe(() => {
-        // this.appendData();
         this.filteredList = this.courseListService.getCoursesList({
           start: 1,
           count: this.currentPage - 1 // Math.floor(this.currentPage / this.limit) + this.limit
