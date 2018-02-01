@@ -1,11 +1,21 @@
+$error-font-color: red;
 .form {
+  position: relative;
   width: 30%;
   min-width: 400px;
   margin: 0 auto;
+
   &-row {
     margin: 10px 0;
     display: flex;
     align-items: flex-start;
+
+    &-errors {
+      position: absolute;
+      right: -250px;
+      max-width: 200px;
+      color: $error-font-color;
+    }
 
     &-title {
       flex-basis: 150px;
