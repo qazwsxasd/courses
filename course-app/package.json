@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=3700",
+    "start:all": "concurrently \"npm run start\" \"npm run server:express\"",
     "server": "json-server --watch server/db.json",
     "server:express": "cd ../server && node index",
     "start:aot": "ng serve --port=3800 --aot",
@@ -40,6 +41,7 @@
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
     "codelyzer": "~3.2.0",
+    "concurrently": "^3.5.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",
