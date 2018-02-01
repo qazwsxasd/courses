@@ -7,18 +7,18 @@ import { AuthService, AuthUser } from '../../core/auth/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  private name: {};
+  private user: AuthUser;
   private welcomeString: string = 'guest';
   constructor(
     private authService: AuthService
   ) { }
 
   ngOnInit() {
-    this.authService.channelSubscribe(({ name }) => this.name = name);
+    this.authService.channelSubscribe(name => this.user = name || {});
   }
 
   isLogined(): boolean {
-    return this.name && !!this.name.first;
+    return this.user && !!this.user.name.first;
   }
 
   toggleLogin(event: any): void {
@@ -29,6 +29,6 @@ export class HeaderComponent implements OnInit {
   }
 
   private get Welcome() {
-    return this.name && this.name.first ? this.name.first : this.welcomeString;
+    return this.user && !!this.user.name.first ? this.user.name.first : this.welcomeString;
   }
 }
