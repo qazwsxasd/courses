@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
+import { AuthService, AuthUser } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,30 +7,28 @@ import { AuthService } from '../../core/auth/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  private username: string;
+  private name: {};
   private welcomeString: string = 'guest';
   constructor(
     private authService: AuthService
-  ) {  }
+  ) { }
 
   ngOnInit() {
-    this.authService.channelSubscribe(({ username }) => this.username = username);
+    this.authService.channelSubscribe(({ name }) => this.name = name);
   }
 
   isLogined(): boolean {
-    return !!this.authService.isAuthenticated().length;
+    return this.name && !!this.name.first;
   }
 
   toggleLogin(event: any): void {
     event.preventDefault();
     if (this.isLogined()) {
       this.authService.logout();
-    } else {
-      this.authService.login({ name: 'John', password: 'sdfWD23s' });
     }
   }
 
   private get Welcome() {
-    return this.username || this.welcomeString;
+    return this.name && this.name.first ? this.name.first : this.welcomeString;
   }
 }

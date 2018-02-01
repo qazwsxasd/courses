@@ -1,17 +1,17 @@
 <div class="login">
   <form class="login-form">
     <div class="login-row">
-      <label class="login-row-label" for="userId">Username:</label>
-      <input type="text" placeholder="login" value="John" #user id="userId">
+      <label class="login-row-label" for="loginId">Username:</label>
+      <input type="text" placeholder="login" value="Warner" #login id="loginId">
       <span>*enter</span>
     </div>
     <div class="login-row">
       <label class="login-row-label" for="passwordId">Password:</label>
-      <input type="password" placeholder="password" value="123" #password id="passwordId">
+      <input type="password" placeholder="password" value="ea" #password id="passwordId">
       <span>*enter</span>
     </div>
     <div class="login-row login-submit">
-      <button class="btn" (click)="loginUser({ name: user.value, password: password.value })">ok</button>
+      <button class="btn" (click)="loginUser({ login: login.value, password: password.value })">ok</button>
     </div>
   </form>
 </div>
