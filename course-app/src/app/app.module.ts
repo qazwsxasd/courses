@@ -20,7 +20,6 @@ import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 import { AppRoutingModule } from './app.routing.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,

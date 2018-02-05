@@ -1,17 +1,48 @@
 <div class="login">
-  <form class="login-form">
+  <form class="login-form" #loginForm="ngForm" (submit)="submit(loginForm)">
     <div class="login-row">
       <label class="login-row-label" for="loginId">Username:</label>
-      <input type="text" placeholder="login" value="Warner" #login id="loginId">
+      <input
+        type="text"
+        placeholder="login"
+        name="loginName"
+        #login="ngModel"
+        [ngModel]="loginModel.login"
+        required
+        minlength="3"
+        maxlength="10"
+        id="loginId" />
       <span>*enter</span>
+      <span  class="login-row-errors" *ngIf="(login?.touched || login?.dirty)&& login?.errors">
+        <span *ngIf="login?.errors.required">Please enter user login.</span>
+        <span *ngIf="login?.errors.minlength">The login must be longer than 3 characters.</span>
+        <span *ngIf="login?.errors.maxlength">The login must be no longer than 10 characters.</span>
+      </span>
     </div>
     <div class="login-row">
       <label class="login-row-label" for="passwordId">Password:</label>
-      <input type="password" placeholder="password" value="ea" #password id="passwordId">
+      <input
+        type="password"
+        placeholder="password"
+        name="passwordName"
+        #password="ngModel"
+        [ngModel]="loginModel.password"
+        required
+        minlength="1"
+        id="passwordId" />
       <span>*enter</span>
+      <span  class="login-row-errors" *ngIf="(password?.touched || password?.dirty)&& password?.errors">
+        <span *ngIf="password?.errors.required">Password enter user login.</span>
+        <span *ngIf="password?.errors.minlength">Password must be more than 1 symbol.</span>
+      </span>
     </div>
     <div class="login-row login-submit">
-      <button class="btn" (click)="loginUser({ login: login.value, password: password.value })">ok</button>
+      <button
+        type="submit"
+        class="btn"
+        [disabled]="loginForm.invalid">
+        ok
+      </button>
     </div>
   </form>
 </div>

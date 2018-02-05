@@ -1,4 +1,5 @@
-$error-font-color: red;
+@import "../../styles/variable";
+
 .form {
   position: relative;
   width: 30%;
@@ -61,5 +62,11 @@ $error-font-color: red;
     &-btn {
       margin: 5px;
     }
+  }
+}
+
+.show-error {
+  &:focus {
+    outline: 1px solid red;;
   }
 }

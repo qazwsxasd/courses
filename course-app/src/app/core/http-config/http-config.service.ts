@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { LoaderService } from '../loader/loader.service';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class HttpConfigService implements HttpInterceptor {
@@ -29,6 +31,11 @@ export class HttpConfigService implements HttpInterceptor {
             this.loaderService.hide();
           }
         }
-       );
+       )
+      .catch(err => {
+        console.log('Caught error', err);
+        this.loaderService.hide(); // add error handling
+        return Observable.of(err);
+      });
   }
 }

@@ -24,15 +24,15 @@ const mainComponents = [
   CourseListComponent,
   CourseItemComponent,
   ToolboxComponent,
-  DurationFormatPipe,
   OrderItemsByPipe,
   StyledDirective,
-  FilterSearchPipe
+  FilterSearchPipe,
+  DurationFormatPipe
 ];
 
 @NgModule({
   declarations: [
-    ...mainComponents,
+    ...mainComponents
   ],
   imports: [
     BrowserModule,

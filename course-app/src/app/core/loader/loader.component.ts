@@ -16,11 +16,13 @@ export class LoaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.channel = this.loaderService.loader.subscribe(show => this.show = show );
+    this.channel =
+      this.loaderService.loader.subscribe(show => {
+        this.show = show;
+      });
   }
 
   ngOnDestroy() {
     this.channel.unsubscribe();
   }
-
 }

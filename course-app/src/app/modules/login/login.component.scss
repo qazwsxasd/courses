@@ -1,4 +1,6 @@
 @import "../../styles/mixins";
+@import "../../styles/variable";
+
 $button-width: 100px;
 $padding: 150px;
 
@@ -15,10 +17,21 @@ $padding: 150px;
     }
 
     &-row {
+      position: relative;
       margin: 10px 0;
+
       &-label {
         display: inline-block;
         width: $padding;
+      }
+
+      &-errors {
+        position: absolute;
+        top: 0;
+        left: 400px;
+        width: 200px;
+        max-width: 200px;
+        color: $error-font-color;
       }
     }
 

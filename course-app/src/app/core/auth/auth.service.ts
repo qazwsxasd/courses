@@ -88,9 +88,14 @@ export class AuthService {
   }
 
   isAuthenticated(): void {
-    this.getUserInfo().subscribe((res: AuthUser) => {
+    this.getUserInfo().subscribe(
+      (res: AuthUser) => {
       console.log('isAuthenticated? ', res);
       this.channelPublish({ name: res.name });
-    }, err => this.channelPublish(null));
+    },
+     err => {
+       this.channelPublish(null);
+       console.error('getUserInfo: ', err);
+     });
   }
 }

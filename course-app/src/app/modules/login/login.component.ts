@@ -9,18 +9,26 @@ import { LocalStorageService } from '../../core/local-storage/local-storage.serv
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  private loginModel;
 
   constructor(private authService: AuthService,
               // @Inject('StorageService') private storageService: any,
               private localStorageService: LocalStorageService
-  ) { }
-
-  ngOnInit() {
-
+  ) {
+    this.loginModel = { login: 'Warner', password: 'ea' }; // mock
   }
+
+  ngOnInit() { }
 
   loginUser(user: UserInfo) {
     this.authService.login(user);
+  }
+
+  submit(form) {
+    this.loginUser({
+      login: form.controls.loginName.value,
+      password: form.controls.passwordName.value
+    });
   }
 
   // isLogined(): boolean {

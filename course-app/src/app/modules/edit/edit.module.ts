@@ -8,7 +8,7 @@ import {
 } from './';
 
 const editComponents = [
-  EditComponent
+  EditComponent,
 ];
 
 @NgModule({

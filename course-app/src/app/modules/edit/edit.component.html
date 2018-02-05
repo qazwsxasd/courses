@@ -1,60 +1,64 @@
 <div>
-  <form class="form" [formGroup]="fg" (submit)="submit(formGroup)">
-    <div formGroupName="courseName">
+  <form class="form" [formGroup]="formCourse" (submit)="submit(formGroup)">
 
       <div class="form-row">
-        <label for="rowTitle" class="form-row-title">Title</label>
+        <label for="titleName" class="form-row-title">Title</label>
         <input
           class="form-row-data form-row-input"
+          [ngClass]="setErrorClass('titleName')"
           type="text"
-          id="rowTitle"
-          required
-          minlength="3"
-          maxlength="50"
+          id="titleName"
           formControlName="titleName"
         />
-        <span  class="form-row-errors" *ngIf="(titleName?.touched || titleName?.dirty) && titleName?.errors">
+        <span  class="form-row-errors" *ngIf="displpayErrorMessage('titleName')">
           <span *ngIf="titleName?.errors.required">Please enter the course title.</span>
-          <span *ngIf="titleName?.errors.minlength">The the title must be longer than 3 characters.</span>
+          <span *ngIf="titleName?.errors.minlength">The title must be longer than 3 characters.</span>
+          <span *ngIf="titleName?.errors.maxlength">The title must be no longer than 50 characters.</span>
         </span>
-
       </div>
 
       <div class="form-row">
         <label for="rowDescription" class="form-row-title">Description</label>
         <textarea
           class="form-row-data form-row-input"
+          [ngClass]="setErrorClass('descriptionName')"
           type="text"
           id="rowDescription"
-          name="description">
+          formControlName="descriptionName">
         </textarea>
+
+        <span  class="form-row-errors" *ngIf="displpayErrorMessage('descriptionName')">
+          <span *ngIf="descriptionName?.errors.required">Please enter the course description.</span>
+          <span *ngIf="descriptionName?.errors.maxlength">The Description must be no longer than 5 characters.</span>
+        </span>
       </div>
 
-      <div class="form-row">
+      <div class="form-row"><!--separate-->
         <label for="rowDate" class="form-row-title">Date</label>
         <input
           class="form-row-data form-row-input"
-          type="text"
+          type="date"
           id="rowDate"
           name="date"
-          required
+          formControlName="startDateName"
         />
       </div>
 
-      <div class="form-row">
-        <label for="rowDuration" class="form-row-title">Duartion</label>
+      <div class="form-row"><!--separate-->
+        <label for="rowDuration" class="form-row-title">Duration</label>
         <div class="form-row-data">
           <input
             class="form-row-input form-row-duration"
-            type="text"
+            type="number"
             id="rowDuration"
             name="duration"
+            formControlName="durationName"
           />
-          <span class="form-row-duration-format">format</span>
+          <span class="form-row-duration-format">{{ durationName.value }}</span>
         </div>
       </div>
 
-      <div class="form-row">
+      <div class="form-row"><!--separate-->
         <label for="rowAuthors1" class="form-row-title">Authors</label>
         <div class="form-row-data author-container">
           <textarea class="form-row-input form-row-author" type="text" id="rowAuthors1"></textarea>
@@ -68,15 +72,14 @@
 
       <div class="form-row">
         <div class="form-row-btns form-row-btns-submit">
-          <button type="submit" class="form-row-btn" [disabled]="fg.invalid">Save</button>
+          <button type="submit" class="form-row-btn" [disabled]="formCourse.invalid">Save</button>
           <button class="form-row-btn">Cancel</button>
         </div>
       </div>
 
       <div>
-        {{ fg.value | json}}
+        {{ formCourse.value | json}}
       </div>
 
-    </div>
   </form>
 </div>
