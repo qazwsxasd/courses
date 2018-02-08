@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/observable/merge';
+// import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/concat';
 
 import { CourseListService } from './course-list.service';
 import { MatDialogService } from '../../../../core/dialogs/matDialog.service';
@@ -34,6 +37,7 @@ export class CourseListComponent implements OnInit {
     this.chunkedCourses = [];
     this.filterField = 'startDate';
     // this.filteredList = this.courseListService.getCoursesList();
+    this.filteredList = Observable.of([]);
     this.appendMoreCourses();
   }
 
@@ -74,11 +78,11 @@ export class CourseListComponent implements OnInit {
         count,
         query
       })
+      // .concat(this.filteredList)
       .subscribe(res => {
-          this.chunkedCourses.push(...res);
-          this.currentPage += this.limit;
-          console.log(this.chunkedCourses);
-          this.filteredList = Observable.of(this.chunkedCourses);
+        this.currentPage += this.limit;
+        // this.filteredList.concat(Observable.of(res));
+        this.filteredList = Observable.merge(this.filteredList, Observable.of(res));  // .merge();
       });
   }
 }
