@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/do';
 
 import { CourseListService } from './course-list.service';
 import { MatDialogService } from '../../../../core/dialogs/matDialog.service';
@@ -19,7 +21,7 @@ export class CourseListComponent implements OnInit {
   filterField: string;
   private queryText: string;
   isAsc: boolean;
-  private chunked: Course[];
+  private chunkedCourses: Course[];
   private currentPage = 0;
   private limit = 3;
 
@@ -29,10 +31,10 @@ export class CourseListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.chunked = [];
+    this.chunkedCourses = [];
     this.filterField = 'startDate';
     // this.filteredList = this.courseListService.getCoursesList();
-    this.appendData();
+    this.appendMoreCourses();
   }
 
   deletedCourse(item: Course): void {
@@ -42,14 +44,14 @@ export class CourseListComponent implements OnInit {
       icon: ''
     })
     .filter(confirmed => confirmed)
+    .switchMap(() => this.courseListService.deleteCourse(item))
     .subscribe(() => {
-      this.courseListService.deleteCourse(item).subscribe(() => {
-        this.filteredList = this.courseListService.getCoursesList({
-          start: 0,
-          count: this.currentPage // Math.floor(this.currentPage / this.limit) + this.limit
-        });
+      this.filteredList = this.courseListService.getCoursesList({
+        start: 0,
+        count: this.currentPage // Math.floor(this.currentPage / this.limit) + this.limit
       });
     });
+
   }
 
   handleFilter(s = ''): void {
@@ -60,12 +62,12 @@ export class CourseListComponent implements OnInit {
       query: s
     })
     .subscribe(res => {
-      this.chunked = res;
-      this.filteredList = Observable.of(this.chunked);
+      this.chunkedCourses = res;
+      this.filteredList = Observable.of(this.chunkedCourses);
     });
   }
 
-  appendData(start = this.currentPage, count = this.limit, query = this.queryText || '') {
+  appendMoreCourses(start = this.currentPage, count = this.limit, query = this.queryText || '') {
     this.courseListService
       .getCoursesList({
         start,
@@ -73,10 +75,10 @@ export class CourseListComponent implements OnInit {
         query
       })
       .subscribe(res => {
-          this.chunked.push(...res);
+          this.chunkedCourses.push(...res);
           this.currentPage += this.limit;
-          console.log(this.chunked);
-          this.filteredList = Observable.of(this.chunked);
+          console.log(this.chunkedCourses);
+          this.filteredList = Observable.of(this.chunkedCourses);
       });
   }
 }

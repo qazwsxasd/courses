@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.channelSubscribe(name => this.user = name || {});
+    this.authService.channelSubscribe(name => this.user = name || { name: {} });
   }
 
   isLogined(): boolean {
@@ -29,6 +29,6 @@ export class HeaderComponent implements OnInit {
   }
 
   private get Welcome() {
-    return this.user && !!this.user.name.first ? this.user.name.first : this.welcomeString;
+    return this.user.name && !!this.user.name.first ? this.user.name.first : this.welcomeString;
   }
 }

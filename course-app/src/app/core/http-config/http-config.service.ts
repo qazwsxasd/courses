@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { LoaderService } from '../loader/loader.service';
 
@@ -18,6 +20,10 @@ export class HttpConfigService implements HttpInterceptor {
 
     return next
       .handle(updateReq)
+      .catch(err => {
+        this.loaderService.hide();
+        return Observable.throw(err);
+      })
       .do(
         (ev: HttpEvent<any>) => {
           if (ev instanceof HttpResponse) {
@@ -30,5 +36,6 @@ export class HttpConfigService implements HttpInterceptor {
           }
         }
        );
+
   }
 }
