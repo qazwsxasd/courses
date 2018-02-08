@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/observable/merge';
-// import 'rxjs/add/observable/concat';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
@@ -51,7 +52,7 @@ export class CourseListComponent implements OnInit {
     .switchMap(() => this.courseListService.deleteCourse(item))
     .switchMap(() => this.courseListService.getCoursesList({
       start: 0,
-      count: this.currentPage // Math.floor(this.currentPage / this.limit) + this.limit
+      count: this.currentPage  - this.limit // Math.floor(this.currentPage / this.limit) + this.limit
     }))
     .subscribe(res => {
       this.filteredList = Observable.of(res);
@@ -64,26 +65,26 @@ export class CourseListComponent implements OnInit {
     this.courseListService.getCoursesList({
       start: 0,
       count: this.currentPage,
-      query: s
+      query: this.queryText
     })
     .subscribe(res => {
-      this.chunkedCourses = res;
-      this.filteredList = Observable.of(this.chunkedCourses);
+      this.filteredList = Observable.of(res);
     });
   }
 
   appendMoreCourses(start = this.currentPage, count = this.limit, query = this.queryText || '') {
-    this.courseListService
-      .getCoursesList({
-        start,
-        count,
-        query
-      })
-      // .concat(this.filteredList)
-      .subscribe(res => {
+    this.filteredList = Observable
+      .forkJoin(
+        this.filteredList,
+        this.courseListService.getCoursesList({
+          start,
+          count,
+          query
+        })
+      )
+      .map(([res1, res2]) => [...res1, ...res2])
+      .do(() => {
         this.currentPage += this.limit;
-        // this.filteredList.concat(Observable.of(res));
-        this.filteredList = Observable.merge(this.filteredList, Observable.of(res));  // .merge();
       });
   }
 }
