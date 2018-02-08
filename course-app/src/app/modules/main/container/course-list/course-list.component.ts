@@ -49,11 +49,12 @@ export class CourseListComponent implements OnInit {
     })
     .filter(confirmed => confirmed)
     .switchMap(() => this.courseListService.deleteCourse(item))
-    .subscribe(() => {
-      this.filteredList = this.courseListService.getCoursesList({
-        start: 0,
-        count: this.currentPage // Math.floor(this.currentPage / this.limit) + this.limit
-      });
+    .switchMap(() => this.courseListService.getCoursesList({
+      start: 0,
+      count: this.currentPage // Math.floor(this.currentPage / this.limit) + this.limit
+    }))
+    .subscribe(res => {
+      this.filteredList = Observable.of(res);
     });
 
   }

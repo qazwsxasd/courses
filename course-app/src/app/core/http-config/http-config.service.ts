@@ -21,7 +21,6 @@ export class HttpConfigService implements HttpInterceptor {
     return next
       .handle(updateReq)
       .catch(err => {
-        this.loaderService.hide();
         return Observable.throw(err);
       })
       .do(
