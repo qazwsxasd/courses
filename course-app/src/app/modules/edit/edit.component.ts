@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AsyncValidator } from '@angular/forms';
-
-import {
-  DurationFormatPipe,
-} from '../../shared';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Course } from '../../core/models/course.model';
 
@@ -18,10 +14,11 @@ export const errorMessages = {
 })
 export class EditComponent implements OnInit {
   private course: Course;
+  author_list: [{ name: 'one', checked: false}, { name: 'two', checked: true}];
   formCourse: FormGroup;
 
   constructor(
-    private builder: FormBuilder // reactive forms
+    private builder: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -29,6 +26,7 @@ export class EditComponent implements OnInit {
       titleName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       descriptionName: ['', [Validators.required, Validators.maxLength(5)]],
       startDateName: [null, Validators.required],
+      authorName: [null, Validators.required],
       durationName: [0, Validators.required]
     });
 

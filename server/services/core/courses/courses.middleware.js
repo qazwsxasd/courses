@@ -34,6 +34,17 @@ module.exports = (server) => {
 
 		res.json(result);
 	});
-	
+
+    router.get('/authors', (req, res, next) => {
+        const courses = server.db.getState().courses;
+        let tmp = [];
+
+		let result = courses
+            .map(item => tmp.push(item.authors));
+		tmp.filter((x, i, a) => a.indexOf(x) == i);
+
+		res.json(tmp);
+	});
+
 	return router;
 };

@@ -4,11 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import {
-  EditComponent
+  EditComponent,
+  DurationComponent,
 } from './';
 
 const editComponents = [
   EditComponent,
+  DurationComponent,
 ];
 
 @NgModule({
