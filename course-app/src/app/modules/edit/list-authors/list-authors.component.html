@@ -1,0 +1,9 @@
+<label *ngFor="let author of authors;let i=index;" class="authors-item">
+  <input type="checkbox"
+      class="authors-checkbox"
+      (change)="setValue($event)"
+      [value]="author.name"
+      [checked]="author.checked"
+       name="name-{{i}}">
+  {{author.name}}
+</label>

@@ -3,14 +3,20 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
+import { AuthorsListService } from './edit.service';
+
 import {
   EditComponent,
   DurationComponent,
+  ListAuthorsComponent,
+  InputNumberComponent
 } from './';
 
 const editComponents = [
   EditComponent,
   DurationComponent,
+  ListAuthorsComponent,
+  InputNumberComponent
 ];
 
 @NgModule({
@@ -22,6 +28,9 @@ const editComponents = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+  ],
+  providers: [
+    AuthorsListService
   ],
   exports: [
     ...editComponents

@@ -1,14 +1,14 @@
-<div>
-  <form class="form" [formGroup]="formCourse" (submit)="submit(formGroup)">
+<div *ngIf="isFormReady">
+  <form class="form" [formGroup]="formCourse" (submit)="submit(formCourse)">
 
       <div class="form-row">
-        <label for="titleName" class="form-row-title">Title</label>
+        <label for="titleNameID" class="form-row-title">Title</label>
         <input
           class="form-row-data form-row-input"
+          formControlName="titleName"
           [ngClass]="setErrorClass('titleName')"
           type="text"
-          id="titleName"
-          formControlName="titleName"
+          id="titleNameID"
         />
         <span  class="form-row-errors" *ngIf="displpayErrorMessage('titleName')">
           <span *ngIf="titleName?.errors.required">Please enter the course title.</span>
@@ -44,32 +44,34 @@
         />
       </div>
 
-      <div class="form-row"><!--separate-->
-        <label for="rowDuration" class="form-row-title">Duration</label>
-        <div class="form-row-data">
-          <input
-            class="form-row-input form-row-duration"
-            type="number"
-            id="rowDuration"
-            name="duration"
-            formControlName="durationName"
-          />
-          <app-duration></app-duration>
-          <span class="form-row-duration-format">{{ durationName.value }}</span>
-        </div>
-      </div>
+    {{ durationName.value | json}}
+
+      <app-duration formControlName="durationName" [nameOption]="durationName"></app-duration>
+
+      <!--<div class="form-row">&lt;!&ndash;separate&ndash;&gt;-->
+        <!--<label for="rowDuration" class="form-row-title">Duration</label>-->
+        <!--<div class="form-row-data">-->
+          <!--<input-->
+            <!--class="form-row-input form-row-duration"-->
+            <!--type="number"-->
+            <!--id="rowDuration"-->
+            <!--name="duration"-->
+            <!--formControlName="durationName"-->
+          <!--/>-->
+          <!--<app-duration></app-duration>-->
+          <!--<span class="form-row-duration-format">{{ durationName.value }}</span>-->
+        <!--</div>-->
+      <!--</div>-->
 
 
 
       <div class="form-row"><!--separate-->
-        <label for="rowAuthors1" class="form-row-title">Authors</label>
+
+        <span class="form-row-title">Authors</span>
         <div class="form-row-data author-container">
-          <textarea class="form-row-input form-row-author" type="text" id="rowAuthors1"></textarea>
-          <div class="form-row-btns">
-            <button class="form-row-btn">&larr;</button>
-            <button class="form-row-btn">&rarr;</button>
+          <div class="author-checkbox">
+            <app-list-authors formArrayName="authorName" [authors]="authorName.value"></app-list-authors>
           </div>
-          <textarea class="form-row-input form-row-author" type="text" id="rowAuthors2"></textarea>
         </div>
       </div>
 
@@ -80,9 +82,9 @@
         </div>
       </div>
 
-      <div>
-        {{ formCourse.value | json}}
-      </div>
+      <!--<div>-->
+        <!--{{ formCourse.value | json}}-->
+      <!--</div>-->
 
   </form>
 </div>

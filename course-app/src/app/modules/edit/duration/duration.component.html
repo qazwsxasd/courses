@@ -1,7 +1,8 @@
 <div class="duration-element">
   <input
     type="text"
-    name="duration"
+    name="{{nameOption}}"
+    (change)="setValue($event)"
   />
   <span></span>
 </div>
