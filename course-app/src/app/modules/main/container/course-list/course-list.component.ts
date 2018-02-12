@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/observable/concat';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/concat';
 
 import { CourseListService } from './course-list.service';
 import { MatDialogService } from '../../../../core/dialogs/matDialog.service';
@@ -19,7 +25,7 @@ export class CourseListComponent implements OnInit {
   filterField: string;
   private queryText: string;
   isAsc: boolean;
-  private chunked: Course[];
+  private chunkedCourses: Course[];
   private currentPage = 0;
   private limit = 3;
 
@@ -29,10 +35,11 @@ export class CourseListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.chunked = [];
+    this.chunkedCourses = [];
     this.filterField = 'startDate';
     // this.filteredList = this.courseListService.getCoursesList();
-    this.appendData();
+    this.filteredList = Observable.of([]);
+    this.appendMoreCourses();
   }
 
   deletedCourse(item: Course): void {
@@ -42,14 +49,15 @@ export class CourseListComponent implements OnInit {
       icon: ''
     })
     .filter(confirmed => confirmed)
-    .subscribe(() => {
-      this.courseListService.deleteCourse(item).subscribe(() => {
-        this.filteredList = this.courseListService.getCoursesList({
-          start: 0,
-          count: this.currentPage // Math.floor(this.currentPage / this.limit) + this.limit
-        });
-      });
+    .switchMap(() => this.courseListService.deleteCourse(item))
+    .switchMap(() => this.courseListService.getCoursesList({
+      start: 0,
+      count: this.currentPage  - this.limit // Math.floor(this.currentPage / this.limit) + this.limit
+    }))
+    .subscribe(res => {
+      this.filteredList = Observable.of(res);
     });
+
   }
 
   handleFilter(s = ''): void {
@@ -57,26 +65,26 @@ export class CourseListComponent implements OnInit {
     this.courseListService.getCoursesList({
       start: 0,
       count: this.currentPage,
-      query: s
+      query: this.queryText
     })
     .subscribe(res => {
-      this.chunked = res;
-      this.filteredList = Observable.of(this.chunked);
+      this.filteredList = Observable.of(res);
     });
   }
 
-  appendData(start = this.currentPage, count = this.limit, query = this.queryText || '') {
-    this.courseListService
-      .getCoursesList({
-        start,
-        count,
-        query
-      })
-      .subscribe(res => {
-          this.chunked.push(...res);
-          this.currentPage += this.limit;
-          console.log(this.chunked);
-          this.filteredList = Observable.of(this.chunked);
+  appendMoreCourses(start = this.currentPage, count = this.limit, query = this.queryText || '') {
+    this.filteredList = Observable
+      .forkJoin(
+        this.filteredList,
+        this.courseListService.getCoursesList({
+          start,
+          count,
+          query
+        })
+      )
+      .map(([res1, res2]) => [...res1, ...res2])
+      .do(() => {
+        this.currentPage += this.limit;
       });
   }
 }
