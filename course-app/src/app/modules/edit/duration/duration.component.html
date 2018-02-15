@@ -1,9 +1,7 @@
-<div class="duration-element">
-  <input
-    type="text"
-    name="{{nameOption}}"
-    (change)="setValue($event)"
-  />
-  <span></span>
-</div>
-
+<input
+  [ngClass]="invalid"
+  type="text"
+  name="{{nameOption}}"
+  [(ngModel)]="value"
+  (change)="setValue($event)"
+/>

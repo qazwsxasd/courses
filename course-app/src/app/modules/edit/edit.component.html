@@ -44,24 +44,23 @@
         />
       </div>
 
-    {{ durationName.value | json}}
 
-      <app-duration formControlName="durationName" [nameOption]="durationName"></app-duration>
-
-      <!--<div class="form-row">&lt;!&ndash;separate&ndash;&gt;-->
-        <!--<label for="rowDuration" class="form-row-title">Duration</label>-->
-        <!--<div class="form-row-data">-->
-          <!--<input-->
-            <!--class="form-row-input form-row-duration"-->
-            <!--type="number"-->
-            <!--id="rowDuration"-->
-            <!--name="duration"-->
-            <!--formControlName="durationName"-->
-          <!--/>-->
-          <!--<app-duration></app-duration>-->
-          <!--<span class="form-row-duration-format">{{ durationName.value }}</span>-->
-        <!--</div>-->
-      <!--</div>-->
+    <div class="form-row">
+      <label for="s" class="form-row-title">Duration</label>
+      <div class="form-row-data">
+        <app-duration
+          id="s"
+          [invalid]="setErrorClass('durationName')"
+          formControlName="durationName"
+          [nameOption]="durationName">
+        </app-duration>
+        <span class="form-row-duration-format">{{ durationName.value }}</span> <!--| format-->
+      </div>
+      <span  class="form-row-errors" *ngIf="displpayErrorMessage('durationName')">
+          <span *ngIf="durationName?.errors.required">111111111111Please enter the course .</span>
+          <span *ngIf="durationName?.errors?.rangeError">between 0 and 500</span>
+        </span>
+    </div>
 
 
 

@@ -6,6 +6,7 @@ import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/switchMap';
 
 import { AuthorsListService } from './edit.service';
+import { DurationValidator } from './duration/duration.component';
 
 import { Course } from '../../core/models/course.model';
 
@@ -46,7 +47,7 @@ export class EditComponent implements OnInit {
           descriptionName: ['', [Validators.required, Validators.maxLength(5)]],
           startDateName: [null, Validators.required],
           authorName: this.builder.array(this.author_list),
-          durationName: [this.duration, Validators.required]
+          durationName: [this.duration, [Validators.required, DurationValidator(500, 0)]]
         });
         this.isFormReady = true;
       });
@@ -71,7 +72,6 @@ export class EditComponent implements OnInit {
   }
 
   setErrorClass(elementName: string) {
-    console.log('element', elementName);
     return {
       'show-error': (this.formCourse.controls[elementName].dirty && this.formCourse.controls[elementName].invalid)
     };
@@ -86,9 +86,5 @@ export class EditComponent implements OnInit {
   get descriptionName() { return this.formCourse.get('descriptionName'); }
   get durationName() { return this.formCourse.get('durationName'); }
   get authorName() { return this.formCourse.get('authorName'); }
-
-  // get authorName(): FormArray {
-  //   return <FormArray>this.formCourse.get('authorName');
-  // }
 
 }
