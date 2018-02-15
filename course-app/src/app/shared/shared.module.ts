@@ -6,11 +6,19 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import {
   HeaderComponent,
   FooterComponent,
+  DurationFormatPipe,
+  OrderItemsByPipe,
+  FilterSearchPipe,
+  StyledDirective
 } from './';
 
 const sharedComponents = [
   HeaderComponent,
   FooterComponent,
+  DurationFormatPipe,
+  OrderItemsByPipe,
+  FilterSearchPipe,
+  StyledDirective
 ];
 
 

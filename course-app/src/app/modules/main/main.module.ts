@@ -2,15 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { SharedModule } from '../../shared/shared.module';
 
 import { CourseListService } from './container/course-list/course-list.service';
-
-import {
-  DurationFormatPipe,
-  OrderItemsByPipe,
-  StyledDirective,
-  FilterSearchPipe
-} from '../../shared';
 
 import {
   ContainerComponent,
@@ -24,10 +18,6 @@ const mainComponents = [
   CourseListComponent,
   CourseItemComponent,
   ToolboxComponent,
-  OrderItemsByPipe,
-  StyledDirective,
-  FilterSearchPipe,
-  DurationFormatPipe
 ];
 
 @NgModule({
@@ -39,6 +29,7 @@ const mainComponents = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule
   ],
   providers: [CourseListService],
   exports: [

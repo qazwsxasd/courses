@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnChanges } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 
 export const DURATION_VALUE_ACCESSOR: any = {
@@ -24,7 +24,7 @@ export function DurationValidator(maxValue, minValue) {
     };
 
     return (Number(c.value) > maxValue || Number(c.value) < minValue) ? err : null;
-  }
+  };
 }
 
 @Component({

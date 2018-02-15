@@ -54,10 +54,10 @@
           formControlName="durationName"
           [nameOption]="durationName">
         </app-duration>
-        <span class="form-row-duration-format">{{ durationName.value }}</span> <!--| format-->
+        <span class="form-row-duration-format">{{ durationName.value | durationFormat }}</span> <!--| format-->
       </div>
       <span  class="form-row-errors" *ngIf="displpayErrorMessage('durationName')">
-          <span *ngIf="durationName?.errors.required">111111111111Please enter the course .</span>
+          <span *ngIf="durationName?.errors.required">requered (doesnt work)</span>
           <span *ngIf="durationName?.errors?.rangeError">between 0 and 500</span>
         </span>
     </div>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/switchMap';
@@ -21,9 +20,7 @@ export const errorMessages = {
 })
 export class EditComponent implements OnInit {
   private course: Course;
-  // author_list = [{ name: 'one', checked: false}, { name: 'two', checked: true}];
-  author_list: Array<{ name: string, checked: boolean}>; // [{ name: 'one', checked: false}, { name: 'two', checked: true}];
-  // authors_list = ['one', 'two'];
+  author_list: Array<{ name: string, checked: boolean}>;
   formCourse: FormGroup;
   isFormReady: boolean;
   duration = 0;
@@ -36,8 +33,6 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
     this.authorsListService.getAuthorsList()
       .subscribe(list => {
         this.author_list = list;

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { SharedModule } from '../../shared/shared.module';
 
 import { AuthorsListService } from './edit.service';
 
@@ -28,6 +29,7 @@ const editComponents = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule
   ],
   providers: [
     AuthorsListService
