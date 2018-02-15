@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import {
-  HeaderComponent,
-  FooterComponent,
+  // HeaderComponent,
+  // FooterComponent,
   DurationFormatPipe,
   OrderItemsByPipe,
   FilterSearchPipe,
@@ -13,8 +13,8 @@ import {
 } from './';
 
 const sharedComponents = [
-  HeaderComponent,
-  FooterComponent,
+  // HeaderComponent,
+  // FooterComponent,
   DurationFormatPipe,
   OrderItemsByPipe,
   FilterSearchPipe,

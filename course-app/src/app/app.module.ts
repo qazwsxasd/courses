@@ -13,6 +13,7 @@ import { CoreModule } from './core/core.module';
 import { LoginModule } from './modules/login/login.module';
 import { MainModule } from './modules/main/main.module';
 import { EditModule } from './modules/edit/edit.module';
+import { HeaderComponent, FooterComponent } from './shared';
 
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
@@ -22,7 +23,8 @@ import { AppRoutingModule } from './app.routing.module';
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    HeaderComponent, FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,7 @@ import { AppRoutingModule } from './app.routing.module';
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [  ],
-  exports: [ ],
+  exports: [  HeaderComponent, FooterComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
