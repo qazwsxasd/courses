@@ -46,19 +46,19 @@
 
 
     <div class="form-row">
-      <label for="s" class="form-row-title">Duration</label>
+      <label for="durationID" class="form-row-title">Duration</label>
       <div class="form-row-data">
         <app-duration
-          id="s"
+          id="durationID"
           [invalid]="setErrorClass('durationName')"
           formControlName="durationName"
           [nameOption]="durationName">
         </app-duration>
-        <span class="form-row-duration-format">{{ durationName.value | durationFormat }}</span> <!--| format-->
+        <span class="form-row-duration-format">{{ durationName.value | durationFormat }}</span>
       </div>
       <span  class="form-row-errors" *ngIf="displpayErrorMessage('durationName')">
           <span *ngIf="durationName?.errors.required">requered (doesnt work)</span>
-          <span *ngIf="durationName?.errors?.rangeError">between 0 and 500</span>
+          <span *ngIf="durationName?.errors?.rangeError">The range must bebetween 0 and 500 min</span>
         </span>
     </div>
 

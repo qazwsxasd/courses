@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/switchMap';
@@ -8,10 +8,6 @@ import { AuthorsListService } from './edit.service';
 import { DurationValidator } from './duration/duration.component';
 
 import { Course } from '../../core/models/course.model';
-
-export const errorMessages = {
-  'title': { minLength: 'sdsd' } // TODO
-};
 
 @Component({
   selector: 'app-course-edit',
@@ -28,9 +24,7 @@ export class EditComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private authorsListService: AuthorsListService
-  ) {
-
-  }
+  ) { }
 
   ngOnInit() {
     this.authorsListService.getAuthorsList()
@@ -59,12 +53,10 @@ export class EditComponent implements OnInit {
   // }
 
   addNew() {
-    this.formCourse.reset();
+    // this.formCourse.reset();
   }
 
-  submit(form) {
-
-  }
+  submit(form) { }
 
   setErrorClass(elementName: string) {
     return {
@@ -81,5 +73,4 @@ export class EditComponent implements OnInit {
   get descriptionName() { return this.formCourse.get('descriptionName'); }
   get durationName() { return this.formCourse.get('durationName'); }
   get authorName() { return this.formCourse.get('authorName'); }
-
 }

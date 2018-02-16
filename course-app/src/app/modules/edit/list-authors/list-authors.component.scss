@@ -1,10 +1,11 @@
 .authors {
-  &-item {
-    display: block;
-    padding: 5px;
-  }
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
 
   &-checkbox {
+  }
 
+  &-text {
   }
 }
