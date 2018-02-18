@@ -23,7 +23,7 @@ export function DurationValidator(maxValue, minValue) {
       }
     };
 
-    return (Number(c.value) > maxValue || Number(c.value) < minValue) ? err : null;
+    return (!Number(c.value) || Number(c.value) > maxValue || Number(c.value) < minValue) ? err : null;
   };
 }
 
@@ -43,6 +43,8 @@ export class DurationComponent implements ControlValueAccessor {
 
   currentValue: any;
   onChange = (_) => {};
+  onTouched = () => {};
+  validateFn: any = () => {};
 
   setValue(item) {
     this.value = item.target.value;
@@ -58,9 +60,6 @@ export class DurationComponent implements ControlValueAccessor {
   get value() {
     return this.currentValue;
   }
-
-  onTouched = () => {};
-  validateFn: any = () => {};
 
   registerOnChange(fn) { // +
     this.onChange = fn;
