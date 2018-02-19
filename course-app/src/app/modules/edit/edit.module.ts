@@ -9,13 +9,15 @@ import { AuthorsListService } from './edit.service';
 import {
   EditComponent,
   DurationComponent,
-  ListAuthorsComponent
+  ListAuthorsComponent,
+  DateFormatComponent
 } from './';
 
 const editComponents = [
   EditComponent,
   DurationComponent,
-  ListAuthorsComponent
+  ListAuthorsComponent,
+  DateFormatComponent
 ];
 
 @NgModule({

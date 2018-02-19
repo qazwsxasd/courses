@@ -6,6 +6,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { AuthorsListService } from './edit.service';
 import { DurationValidator } from './duration/duration.component';
+import { DateValidator } from './date-format/date-format.component';
 
 import { Course } from '../../core/models/course.model';
 
@@ -34,7 +35,7 @@ export class EditComponent implements OnInit {
         this.formCourse = this.builder.group({
           titleName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
           descriptionName: ['', [Validators.required, Validators.maxLength(5)]],
-          startDateName: [null, Validators.required],
+          startDateName: [null, [Validators.required, DateValidator()]],
           authorName: this.builder.array(this.author_list),
           durationName: [this.duration, [Validators.required, DurationValidator(500, 0)]]
         });
@@ -73,4 +74,5 @@ export class EditComponent implements OnInit {
   get descriptionName() { return this.formCourse.get('descriptionName'); }
   get durationName() { return this.formCourse.get('durationName'); }
   get authorName() { return this.formCourse.get('authorName'); }
+  get startDateName() { return this.formCourse.get('startDateName'); }
 }

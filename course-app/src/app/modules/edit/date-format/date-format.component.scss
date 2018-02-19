@@ -1,0 +1,11 @@
+@import '../../../styles/variable.scss';
+@import '../../../styles/mixins';
+
+.date-format {
+  width: 100%;
+  @include input-settings;
+}
+
+.show-error {
+  @include error-message;
+}

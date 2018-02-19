@@ -1,4 +1,6 @@
 @import '../../../styles/variable.scss';
+@import '../../../styles/mixins';
+
 .show-error {
   &:focus {
     outline: 1px solid $error-font-color;
@@ -6,6 +8,6 @@
 }
 
 input {
-  padding: 5px;
+  @include input-settings;
   max-width: 100px;
 }

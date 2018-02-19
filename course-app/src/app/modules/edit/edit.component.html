@@ -33,17 +33,19 @@
         </span>
       </div>
 
-      <div class="form-row"><!--separate-->
-        <label for="rowDate" class="form-row-title">Date</label>
-        <input
-          class="form-row-data form-row-input"
-          type="date"
+    <div class="form-row">
+      <label for="rowDate" class="form-row-title">Date</label>
+      <div class="form-row-data">
+        <app-date-format
           id="rowDate"
-          name="date"
+          [invalid]="setErrorClass('startDateName')"
           formControlName="startDateName"
-        />
+        ></app-date-format>
+        <span  class="form-row-errors" *ngIf="displpayErrorMessage('startDateName')">
+          <span *ngIf="startDateName?.errors?.dateError.period">Set start date please, it shouldn't be eralier than 14 days ago</span>
+        </span>
       </div>
-
+    </div>
 
     <div class="form-row">
       <label for="durationID" class="form-row-title">Duration</label>
@@ -57,9 +59,9 @@
         <span class="form-row-duration-format">{{ durationName.value | durationFormat }}</span>
       </div>
       <span  class="form-row-errors" *ngIf="displpayErrorMessage('durationName')">
-          <span *ngIf="durationName?.errors.required">requered (doesnt work)</span>
-          <span *ngIf="durationName?.errors?.rangeError">The range must bebetween 0 and 500 min</span>
-        </span>
+        <span *ngIf="durationName?.errors.required">requered (doesnt work)</span>
+        <span *ngIf="durationName?.errors?.rangeError">The range must bebetween 0 and 500 min</span>
+      </span>
     </div>
 
 

@@ -8,14 +8,17 @@
   margin: 0 auto;
 
   &-row {
+    position: relative;
     margin: 10px 0;
     display: flex;
     align-items: flex-start;
 
     &-errors {
       position: absolute;
+      top: 0;
       right: -250px;
-      max-width: 200px;
+      max-width: 240px;
+      font-size: 12px;
       color: $error-font-color;
     }
 
@@ -32,7 +35,7 @@
     }
 
     &-input {
-      padding: 5px;
+      @include input-settings;
     }
 
     &-duration {
@@ -77,7 +80,5 @@
 }
 
 .show-error {
-  &:focus {
-    outline: 1px solid $error-font-color;
-  }
+  @include error-message;
 }
