@@ -27,7 +27,7 @@ const sharedComponents = [
     sharedComponents
   ],
   imports: [
-    BrowserModule,
+    // BrowserModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

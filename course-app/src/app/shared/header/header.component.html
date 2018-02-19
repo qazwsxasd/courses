@@ -8,6 +8,12 @@
     </div>
     <div class="header-login">
       <p>hello, {{Welcome}}</p>
+      <button
+        class="header-button"
+        (click)="toggleLogin($event)">
+        {{loginButtonLabel}}
+      </button>
     </div>
+
   </div>
 </header>

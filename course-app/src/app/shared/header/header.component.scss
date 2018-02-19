@@ -18,17 +18,9 @@ header {
     justify-content: space-between;
     align-items: center;
   }
-  
+
   &-login {
     text-align: right;
-
-    .login {
-      text-decoration: none;
-      color: inherit;
-      &:hover {
-        color: #000;
-      }
-    }
   }
 
   &-logo {
@@ -39,5 +31,16 @@ header {
     &-img {
         padding: 5px;
     }
-}
+  }
+
+  &-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    color: inherit;
+    &:hover {
+      color: #000;
+    }
+  }
 }

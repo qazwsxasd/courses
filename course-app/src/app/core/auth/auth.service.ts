@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/operator/catch';
 
 import { LocalStorageService } from '../local-storage/local-storage.service';
 
@@ -29,10 +33,12 @@ const KEY = 'token';
 export class AuthService {
   private subject: BehaviorSubject<any> = new BehaviorSubject<any>({ name: {} });
   isLogined: Subject<boolean> = new Subject<boolean>();
+  private userName: AuthUser | null;
   constructor(
     private http: HttpClient,
     // TODO check if localStorage is available and set a proper service; refactor constructor
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private router: Router
   ) {
     if (this.getLocalInfo()) {
       this.logout(false);
@@ -40,31 +46,25 @@ export class AuthService {
   }
 
   login(user: UserInfo) {
-    this.http.post(`${URL}${authRoute}/login`, JSON.stringify(user))
-      .subscribe(
-        res => {
-          console.log(res); // token
-          this.localStorageService.setItem(KEY, res[KEY]);
-
-          this.getUserInfo()
-            .subscribe( (userInfo: AuthUser) => {
-              console.log('login-> userInfo: ', userInfo.name);
-              this.channelPublish({ name: userInfo.name });
-            },
-              err => console.log('getUser err: ', err));
-        },
-        // TODO add error handlers
-        err => {
-          console.error('login err: ', err);
-          this.channelPublish(null);
-        }
-      );
+    return this.http.post(`${URL}${authRoute}/login`, JSON.stringify(user))
+      .map(res => {
+        this.localStorageService.setItem(KEY, res[KEY]);
+      })
+      .switchMap(() => this.getUserInfo())
+      .subscribe((userInfo: AuthUser) => {
+        this.userName = userInfo;
+        console.log(userInfo);
+        this.channelPublish({ name: userInfo.name });
+      },
+          err => { this.channelPublish(null); },
+        () => { this.router.navigate(['/main']); });
   }
 
   logout(send = true) {
     this.localStorageService.removeItem(KEY);
+    this.userName = null;
     if (send) {
-      // this.channelPublish(this.getLocalInfo());
+      this.channelPublish(this.userName);
     }
   }
 
@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   private getUserInfo() {
-    const userInfo = this.localStorageService.getItem(KEY);
+    const userInfo = this.localStorageService.getItem(KEY) || {};
     return this.http.post(`${URL}${authRoute}/${infoRoute}`, {}, {
       headers: { 'Authorization': userInfo }
     });
@@ -97,5 +97,13 @@ export class AuthService {
        this.channelPublish(null);
        console.error('getUserInfo: ', err);
      });
+  }
+
+  // isAuthenticated() {
+  //   return this.getUserInfo();
+  // }
+
+  isLoggedIn(): boolean {
+    return !!this.userName && !!this.userName.name.first;
   }
 }

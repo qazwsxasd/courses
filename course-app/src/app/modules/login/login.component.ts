@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { AuthService, UserInfo } from '../../core/auth/auth.service';
 import { LocalStorageService } from '../../core/local-storage/local-storage.service';
@@ -25,13 +25,10 @@ export class LoginComponent implements OnInit {
   }
 
   submit(form) {
-    this.loginUser({
+    this.authService.login({
       login: form.controls.loginName.value,
       password: form.controls.passwordName.value
     });
-  }
 
-  // isLogined(): boolean {
-  //   return !!this.authService.isAuthenticated();
-  // }
+  }
 }

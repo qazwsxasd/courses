@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from './core/auth/auth.guard';
+
 import { LoginComponent } from './modules/login/login.component';
-import { ContainerComponent } from './modules/main/container/container.component';
 import { EditComponent } from './modules/edit/edit.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 const routes: Routes = [
   {
     path: 'main',
-    component: ContainerComponent,
-    data: { title: 'Course List'}
+    canActivate: [AuthGuard],
+    loadChildren: './modules/main/main.module#MainModule'
   },
   {
     path: '',
@@ -32,8 +33,6 @@ const routes: Routes = [
     component: NotFoundComponent
   }
 ];
-
-// TODO ask about lazy
 
 @NgModule({
   imports: [

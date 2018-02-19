@@ -10,6 +10,7 @@ import { isPlatformBrowser } from '@angular/common';
 
 import { SimpleDialogService } from './dialogs/simple-dialog.service';
 import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth.guard';
 import { LocalStorageService } from './local-storage/local-storage.service';
 import { MatDialogService } from './dialogs/matDialog.service';
 import { HttpConfigService } from './http-config/http-config.service';
@@ -39,6 +40,7 @@ const coreComponents = [
     SimpleDialogService,
     MatDialogService,
     AuthService,
+    AuthGuard,
     LocalStorageService,
     // HttpConfigService,
     LoaderService,

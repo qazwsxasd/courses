@@ -1,10 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 
 import { CourseListService } from './container/course-list/course-list.service';
+import { MainRoutingModule } from './main.routing.module';
 
 import {
   ContainerComponent,
@@ -25,10 +25,10 @@ const mainComponents = [
     ...mainComponents
   ],
   imports: [
-    BrowserModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    MainRoutingModule,
     SharedModule
   ],
   providers: [CourseListService],
