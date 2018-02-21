@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import { HttpEvent, HttpErrorResponse, HttpHandler, HttpRequest, HttpClient,
-  HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import {HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
@@ -10,6 +8,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeAll';
 import 'rxjs/add/operator/toArray';
 
+import { AuthorConvertedShape } from '../../core/models/course.model';
 
 const URL = 'http://localhost:3004/';
 const authorsRoute = 'authors';
@@ -20,14 +19,14 @@ export class AuthorsListService {
     private http: HttpClient
   ) { }
 
-  getAuthorsList(): Observable<any[]> {
+  getAuthorsList(): Observable<AuthorConvertedShape[]> {
     return this.http
       .get<any[]>(`${URL}${authorsRoute}`)
       .map(response => {
-        const t: Array<{ name: string, checked: boolean}> = [];
+        const t: Array<AuthorConvertedShape> = [];
         response.map(item => {
           item.map(author => {
-            t.push(Object.assign({},{ name: `${author.firstName} ${author.lastName}`, checked: false }));
+            t.push(Object.assign({}, { id: author.id, name: `${author.firstName} ${author.lastName}`, checked: false }));
           });
         });
 

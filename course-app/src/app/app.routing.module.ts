@@ -4,14 +4,20 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/auth/auth.guard';
 
 import { LoginComponent } from './modules/login/login.component';
-import { EditComponent } from './modules/edit/edit.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 const routes: Routes = [
   {
-    path: 'main',
+    path: 'edit',
+    canLoad: [AuthGuard],
     canActivate: [AuthGuard],
-    loadChildren: './modules/main/main.module#MainModule'
+    loadChildren: './modules/main/main.module#MainModule',
+  },
+  {
+    path: 'edit',
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
+    loadChildren: './modules/edit/edit.module#EditModule'
   },
   {
     path: '',
@@ -22,11 +28,6 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     data: { title: 'Login'}
-  },
-  {
-    path: 'edit',
-    component: EditComponent,
-    data: { title: 'Add/Edit'}
   },
   {
     path: '**',

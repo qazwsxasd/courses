@@ -11,12 +11,11 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { CoreModule } from './core/core.module';
 import { LoginModule } from './modules/login/login.module';
-import { MainModule } from './modules/main/main.module';
-import { EditModule } from './modules/edit/edit.module';
 import { HeaderComponent, FooterComponent } from './shared';
 
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
+import { BreadcrumsComponent} from './shared/breadcrums/breadcrums.component';
 
 import { AppRoutingModule } from './app.routing.module';
 
@@ -24,7 +23,8 @@ import { AppRoutingModule } from './app.routing.module';
   declarations: [
     AppComponent,
     NotFoundComponent,
-    HeaderComponent, FooterComponent
+    HeaderComponent, FooterComponent,
+    BreadcrumsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,12 +38,10 @@ import { AppRoutingModule } from './app.routing.module';
 
     CoreModule,
     LoginModule,
-    MainModule,
-    EditModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [  ],
-  exports: [  HeaderComponent, FooterComponent ],
+  exports: [  HeaderComponent, FooterComponent, BreadcrumsComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

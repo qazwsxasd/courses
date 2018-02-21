@@ -4,3 +4,4 @@ export * from './directives/border.directive';
 export * from './pipes/duration.pipe';
 export * from './pipes/order-by.pipe';
 export * from './pipes/filter-search.pipe';
+export * from './breadcrums/breadcrums.component';

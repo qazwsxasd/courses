@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
+import { EditRoutingModule } from './edit.routing.module';
 
 import { AuthorsListService } from './edit.service';
 
@@ -25,11 +25,11 @@ const editComponents = [
     ...editComponents
   ],
   imports: [
-    BrowserModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    EditRoutingModule,
   ],
   providers: [
     AuthorsListService

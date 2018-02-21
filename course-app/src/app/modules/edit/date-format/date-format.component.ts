@@ -25,8 +25,6 @@ export function DateValidator(period = 14) {
       }
     };
 
-    console.log(moment(c.value) < deltaDays);
-
     return (!c.value || moment(c.value) < deltaDays) ? err : null;
   };
 }

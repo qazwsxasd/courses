@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, CanLoad, Route,
-  ActivatedRouteSnapshot, NavigationExtras,
-  RouterStateSnapshot, CanActivateChild
+  ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild
 } from '@angular/router';
 
 import { AuthService } from './auth.service';
@@ -15,25 +14,17 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   ) {}
 
   private checkLogin(url: string = ''): boolean {
-    if (this.authService.isLoggedIn()) { return true; }
-
-    // Store the attempted URL for redirecting
-    this.redirectUrl = url;
-
-    const navigationExtras: NavigationExtras = {
-      queryParams: { 'session_id': 111 },
-      fragment: 'anchor'
-    };
-
-    // Navigate to the login page
-    this.router.navigate(['/login'], navigationExtras);
+    if (this.authService.isLoggedIn()) {
+      return true;
+    }
+    this.router.navigate(['/login']);
     return false;
   }
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     // const url: string = state.url;
-    console.log('route=', route, 'state=', state);
+    // console.log('route=', route, 'state=', state);
     return this.checkLogin();
   }
 

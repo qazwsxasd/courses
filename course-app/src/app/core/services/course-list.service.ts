@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpEvent, HttpErrorResponse, HttpHandler, HttpRequest, HttpClient,
-  HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
@@ -10,9 +9,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeAll';
 import 'rxjs/add/operator/toArray';
 
-import * as moment from 'moment';
-
-import { Course, CourseShape } from '../../../../core/models/course.model';
+import { Course, CourseShape } from '../models/course.model';
 
 const URL = 'http://localhost:3004/';
 const courseRoute = 'courses';
@@ -34,8 +31,8 @@ export class CourseListService {
     return this.http.get<any[]>(`${URL}${courseRoute}`, { params: data })
       .map(response => {
         const result = response
-          .map(({ id, name, isTopRated, date, endDate, description, length }) => {
-            return new Course(id, name, isTopRated, date, endDate, description, length);
+          .map(({ id, name, isTopRated, date, endDate, description, authors, length }) => {
+            return new Course(id, name, isTopRated, date, endDate, description, length, authors);
           });
           // .filter(el => {
           //   return moment(el.startDate) > fourteenDaysDiff;
@@ -44,10 +41,9 @@ export class CourseListService {
       });
   }
 
-  getCourseById(id: number) {
-    return this.getCoursesList().subscribe(
-      courses => courses.filter(item => item.id === id)[0]
-    );
+  getCourseById(id: number): Observable<Course> {
+    return this.getCoursesList()
+    .map(courses => courses.filter(item => item.id === id)[0]);
   }
 
   addItemToCourseList(item: CourseShape): void {
@@ -60,7 +56,6 @@ export class CourseListService {
 
   deleteCourse(item: Course): Observable<any> {
     return this.http.delete(`${URL}${courseRoute}/${item.id}`);
-
   }
 
   clear(): void {

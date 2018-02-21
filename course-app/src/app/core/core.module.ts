@@ -8,15 +8,16 @@ import { Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 
-import { SimpleDialogService } from './dialogs/simple-dialog.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
+import { SimpleDialogService } from './dialogs/simple-dialog.service';
 import { LocalStorageService } from './local-storage/local-storage.service';
 import { MatDialogService } from './dialogs/matDialog.service';
 import { HttpConfigService } from './http-config/http-config.service';
 import { LoaderService } from './loader/loader.service';
-import { LoaderComponent } from './loader/loader.component';
+import { CourseListService } from './services/course-list.service';
 
+import { LoaderComponent } from './loader/loader.component';
 import { ConfirmDialogComponent } from './dialogs/matDialog.component';
 
 const coreComponents = [
@@ -42,6 +43,7 @@ const coreComponents = [
     AuthService,
     AuthGuard,
     LocalStorageService,
+    CourseListService,
     // HttpConfigService,
     LoaderService,
     {

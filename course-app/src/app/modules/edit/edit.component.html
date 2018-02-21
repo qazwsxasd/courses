@@ -24,6 +24,7 @@
           [ngClass]="setErrorClass('descriptionName')"
           type="text"
           id="rowDescription"
+          rows="7"
           formControlName="descriptionName">
         </textarea>
 
@@ -66,7 +67,7 @@
 
 
 
-      <div class="form-row"><!--separate-->
+      <div class="form-row">
 
         <span class="form-row-title">Authors</span>
         <div class="form-row-data author-container">
@@ -79,7 +80,7 @@
       <div class="form-row">
         <div class="form-row-btns form-row-btns-submit">
           <button type="submit" class="form-row-btn" [disabled]="formCourse.invalid">Save</button>
-          <button class="form-row-btn">Cancel</button>
+          <button class="form-row-btn" (click)="returnBack()">Cancel</button>
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { AuthService, AuthUser } from '../../core/auth/auth.service';
 
 @Component({
@@ -28,8 +28,8 @@ export class HeaderComponent implements OnInit {
     event.preventDefault();
     if (this.isLogined()) {
       this.authService.logout();
-      this.router.navigate(['login']);
     }
+    this.router.navigate(['login']);
   }
 
   private get Welcome() {

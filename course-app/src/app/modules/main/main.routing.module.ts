@@ -11,8 +11,6 @@ const routes: Routes = [
   }
 ];
 
-export let mainRouterComponents = [ContainerComponent];
-
 @NgModule({
   imports: [
     RouterModule.forChild(routes)
@@ -20,4 +18,5 @@ export let mainRouterComponents = [ContainerComponent];
   exports: [RouterModule],
   providers: []
 })
+
 export class MainRoutingModule { }

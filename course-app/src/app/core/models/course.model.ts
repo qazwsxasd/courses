@@ -8,6 +8,19 @@ export interface CourseShape {
   duration?: number;
 }
 
+export interface AuthorShape {
+    id: number;
+    firstName: string;
+    lastName: string;
+    checked?: boolean;
+}
+
+export interface AuthorConvertedShape {
+  id: number;
+  name: string;
+  checked?: boolean;
+}
+
 export class Course implements CourseShape {
   constructor(
     public id: number,
@@ -16,7 +29,8 @@ export class Course implements CourseShape {
     public startDate: string,
     public endDate?: string,
     public description?: string,
-    public duration?: number
+    public duration?: number,
+    public authors?: Array<AuthorShape>
   ) {}
 
 }

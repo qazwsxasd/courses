@@ -14,7 +14,7 @@
     <div class="item-area wide"><span class="item-value">{{ item.description }}</span></div>
   </div>
   <div class="item-actions">
-    <button class="btn">Edit course</button>
+    <button class="btn" (click)="onEdit(item.id)">Edit course</button>
     <button class="btn" (click)="onDelete(item)">Delete</button>
   </div>
 </div>

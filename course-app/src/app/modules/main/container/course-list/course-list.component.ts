@@ -9,7 +9,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/concat';
 
-import { CourseListService } from './course-list.service';
+import { CourseListService } from '../../../../core/services/course-list.service';
 import { MatDialogService } from '../../../../core/dialogs/matDialog.service';
 
 import { Course } from '../../../../core/models/course.model';

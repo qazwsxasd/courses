@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -38,6 +38,7 @@ export class AuthService {
     private http: HttpClient,
     // TODO check if localStorage is available and set a proper service; refactor constructor
     private localStorageService: LocalStorageService,
+    private route: ActivatedRoute,
     private router: Router
   ) {
     if (this.getLocalInfo()) {
@@ -57,7 +58,10 @@ export class AuthService {
         this.channelPublish({ name: userInfo.name });
       },
           err => { this.channelPublish(null); },
-        () => { this.router.navigate(['/main']); });
+        () => {
+      // TODO redirect to prev
+      this.router.navigate(['edit']);
+    });
   }
 
   logout(send = true) {
