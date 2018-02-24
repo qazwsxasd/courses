@@ -4,13 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { EditResolveGuard } from './edit-resolve.guard';
 import { AuthorResolveGuard } from './authors-resolve.guard';
 
+import { CanDeactivateGuard} from '../../core/guards/deactivate.guard';
+
 import { EditComponent } from './index';
 
 const routes: Routes = [
   {
     path: 'new',
     component: EditComponent,
-    // canDeactivate: [CanDeactivateGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: { title: 'new course' },
     resolve: {
       authors: AuthorResolveGuard
@@ -19,7 +21,7 @@ const routes: Routes = [
   {
     path: ':id',
     component: EditComponent,
-    // canDeactivate: [CanDeactivateGuard],
+    canDeactivate: [CanDeactivateGuard],
     data: { title: 'edit course' },
     resolve: {
       course: EditResolveGuard,
@@ -35,6 +37,6 @@ export let editRouterComponents = [EditComponent];
     RouterModule.forChild(routes)
   ],
   exports: [RouterModule],
-  providers: [EditResolveGuard, AuthorResolveGuard]
+  providers: [EditResolveGuard, AuthorResolveGuard, CanDeactivateGuard]
 })
 export class EditRoutingModule { }

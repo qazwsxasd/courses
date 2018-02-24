@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router  } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/switchMap';
 
-import * as moment from 'moment';
+import { MatDialogService} from '../../core/dialogs/matDialog.service';
+import { CourseListService } from '../../core/services/course-list.service';
 
-import { AuthorsListService } from './edit.service';
 import { DurationValidator } from './duration/duration.component';
 import { DateValidator } from './date-format/date-format.component';
 
@@ -30,13 +31,21 @@ export class EditComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private matDialogService: MatDialogService,
+    private courseListService: CourseListService
   ) { }
 
   ngOnInit() {
     this.route.data.forEach((data: { course: Course, authors: any[] }) => {
-      this.courseEdit = Object.assign({}, data.course);
-      this.courseNew = Object.assign({}, data.course);
+
+      if (data.course) {
+        this.courseEdit = Object.assign({}, data.course);
+      } else {
+        this.courseEdit = new Course( 0, '', false, '', '', '', 0, []);
+      }
+      Object.assign(this.courseEdit, { startDate: this.convertDateToInput(this.courseEdit.startDate) });
+
       this.author_list = data.authors;
 
       if (this.courseEdit.authors && this.author_list) {
@@ -49,32 +58,17 @@ export class EditComponent implements OnInit {
         });
       }
 
-    // }).then(res => {
+    // }).then(res => { // ?
       this.formCourse = this.builder.group({
         titleName: [this.courseEdit.name, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
         descriptionName: [this.courseEdit.description, [Validators.required, Validators.maxLength(500)]],
-        startDateName: [this.convertDateToInput(this.courseEdit.startDate), [Validators.required, DateValidator()]],
-        authorName: this.builder.array(this.author_list),
+        startDateName: [this.courseEdit.startDate, [Validators.required, DateValidator()]],
+        authorsName: this.builder.array(this.author_list),
         durationName: [this.courseEdit.duration, [Validators.required, DurationValidator(500, 0)]]
       });
+
       this.isFormReady = true;
     });
-
-    // this.authorsListService.getAuthorsList()
-    //   .subscribe(list => {
-    //     this.author_list = list;
-    //
-    //     this.formCourse = this.builder.group({
-    //       titleName: [this.courseEdit.name, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-    //       descriptionName: [this.courseEdit.description, [Validators.required, Validators.maxLength(500)]],
-    //       startDateName: [new Date(this.courseEdit.startDate).toISOString().slice(0, 10), [Validators.required, DateValidator()]],
-    //       authorName: this.builder.array(this.author_list),
-    //       durationName: [this.courseEdit.duration, [Validators.required, DurationValidator(500, 0)]]
-    //     });
-    //     this.isFormReady = true;
-    //   });
-
-    // this.formCourse.valueChanges.subscribe(value => console.log(`changed ${value}`));
   }
 
   // private initForm(item: Course): void { // item -> deepCopy(item) ->
@@ -110,9 +104,53 @@ export class EditComponent implements OnInit {
     return date ? new Date(date).toISOString().slice(0, 10) : '';
   }
 
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    // let key: string;
+    // for (key in this.courseEdit) {
+    //   const controlProperty = `${key}Name`;
+    //   if (this.formCourse.controls.hasOwnProperty(controlProperty)) {
+    //     if (this.courseEdit[key] === this.formCourse.controls[controlProperty].value) {
+    //       return true;
+    //     }
+    //   }
+    // }
+
+    const res = [
+      this.courseEdit.name === this.titleName.value,
+      this.courseEdit.description === this.descriptionName.value,
+      this.courseEdit.duration === this.durationName.value,
+      this.convertDateToInput(this.courseEdit.startDate) === this.startDateName.value
+    ].every((element) => element);
+
+    if (res) { return true; }
+
+    return this.matDialogService.show({ title: 'Warning', message: 'Disacard changes?', icon: '' });
+  }
+
+  saveData() {
+    const data = this.formCourse.value;
+    Object.assign(this.courseEdit, {
+      name: data.titleName,
+      description: data.descriptionName,
+      duration: data.durationName,
+      startDate: data.startDateName
+    });
+
+    if (this.courseEdit.id) {
+      this.courseListService.updateCourse(this.courseEdit)
+        .subscribe(
+          () => {},
+          (err) => console.log(`can't update data: ${err}`),
+          () => this.returnBack())
+    } else {
+      this.courseListService.addItemToCourseList(this.courseEdit);
+    }
+    // should be error handler
+  }
+
   get titleName() { return this.formCourse.get('titleName'); }
   get descriptionName() { return this.formCourse.get('descriptionName'); }
   get durationName() { return this.formCourse.get('durationName'); }
-  get authorName() { return this.formCourse.get('authorName'); }
+  get authorsName() { return this.formCourse.get('authorsName'); }
   get startDateName() { return this.formCourse.get('startDateName'); }
 }

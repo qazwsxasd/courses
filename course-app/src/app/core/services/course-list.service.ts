@@ -50,8 +50,9 @@ export class CourseListService {
     this.http.post(`${URL}${courseRoute}`, JSON.stringify(this.convertDataToBackendFormat(item)));
   }
 
-  updateCourse(item: Course): void {
-    this.http.put(`${URL}${courseRoute}/${item.id}`, JSON.stringify(this.convertDataToBackendFormat(item)));
+  updateCourse(item: Course): Observable<any> {
+    const body = JSON.stringify(this.convertDataToBackendFormat(item));
+    return this.http.put(`${URL}${courseRoute}/${item.id}`, body);
   }
 
   deleteCourse(item: Course): Observable<any> {
@@ -63,8 +64,14 @@ export class CourseListService {
   }
 
   private convertDataToBackendFormat(item: Course): any {
-    const obj = Object.assign({}, item, { start: item.startDate });
+    const obj = Object.assign({}, item, {
+      id: item.id || Math.ceil((Math.random() * 1000)),
+      start: new Date(item.startDate).toISOString().slice(0, -1),
+      isTopRated: item.rate,
+      authors: item.authors || []
+    });
     delete obj.startDate;
+    delete obj.rate;
     return obj;
   }
 }

@@ -15,7 +15,7 @@ export class MatDialogService {
             title,
             message,
             icon
-        })
+        });
 
         return dialogRef.afterClosed();
     }

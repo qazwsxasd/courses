@@ -33,11 +33,11 @@ export class BreadcrumsComponent implements OnInit {
     this.router.events
       .filter(event => event instanceof NavigationEnd)
       .subscribe((event: any) => {
-        console.log(555);
-
         const children = this.activatedRoute.root.children;
 
-        for (let child of children) {};
+        for (let child of children) {
+          
+        };
 
         this.breadcrumbs.push({
           route: event.url,

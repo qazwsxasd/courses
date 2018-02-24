@@ -7,7 +7,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
-
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { SimpleDialogService } from './dialogs/simple-dialog.service';
@@ -16,6 +15,8 @@ import { MatDialogService } from './dialogs/matDialog.service';
 import { HttpConfigService } from './http-config/http-config.service';
 import { LoaderService } from './loader/loader.service';
 import { CourseListService } from './services/course-list.service';
+
+import { CanDeactivateGuard} from './guards/deactivate.guard';
 
 import { LoaderComponent } from './loader/loader.component';
 import { ConfirmDialogComponent } from './dialogs/matDialog.component';
@@ -46,6 +47,7 @@ const coreComponents = [
     CourseListService,
     // HttpConfigService,
     LoaderService,
+    CanDeactivateGuard,
     {
       provide: HTTP_INTERCEPTORS,
       deps: [LoaderService],

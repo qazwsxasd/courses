@@ -72,14 +72,14 @@
         <span class="form-row-title">Authors</span>
         <div class="form-row-data author-container">
           <div class="author-checkbox">
-            <app-list-authors formArrayName="authorName" [authors]="authorName.value"></app-list-authors>
+            <app-list-authors formArrayName="authorsName" [authors]="authorsName.value"></app-list-authors>
           </div>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-row-btns form-row-btns-submit">
-          <button type="submit" class="form-row-btn" [disabled]="formCourse.invalid">Save</button>
+          <button type="submit" class="form-row-btn" [disabled]="formCourse.invalid" (click)="saveData()">Save</button>
           <button class="form-row-btn" (click)="returnBack()">Cancel</button>
         </div>
       </div>
