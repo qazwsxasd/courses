@@ -1,15 +1,12 @@
 mentorship/courses 
 
-#### task 8: forms ####
+#### task 9: routing ####
 
-1. reactive form (add/edit)
+1. routes
 
-2. reactive form validation (add/edit)
+2. resolve data
 
-3. custom form controls (add/edit)
+3. can deactivate guards
 
-4. custom form controls validation (add/edit)
+4. breadcrums
 
-5. template driven form (login)
-
-6. template driven form validation (login)

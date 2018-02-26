@@ -1,5 +1,6 @@
 <ul class="breadcrumb">
-  <li *ngFor="let breadcrumb of breadcrumbs">
-    <a [routerLink]="breadcrumb.route">{{ breadcrumb.route }}</a>
+  <li class="breadcrumb-home"><a routerLink="" class="breadcrumb">Home</a></li>
+  <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs">
+    <a [routerLink]="[breadcrumb.url]">{{ breadcrumb.label }}</a>
   </li>
 </ul>

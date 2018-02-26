@@ -3,9 +3,9 @@ import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET } from '@
 import 'rxjs/add/operator/filter';
 
 interface BreadcrumbsShape {
-  name: string;
-  params?: Params;
-  route: string;
+  label: string;
+  url: string;
+  params: Params;
 }
 
 @Component({
@@ -21,10 +21,7 @@ export class BreadcrumsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.breadcrumbs = [{
-      route: 'main',
-      name: 'main'
-    }];
+    this.breadcrumbs = [];
   }
 
   ngOnInit() {
@@ -33,16 +30,49 @@ export class BreadcrumsComponent implements OnInit {
     this.router.events
       .filter(event => event instanceof NavigationEnd)
       .subscribe((event: any) => {
-        const children = this.activatedRoute.root.children;
-
-        for (let child of children) {
-          
-        };
-
-        this.breadcrumbs.push({
-          route: event.url,
-          name: event.url
-        });
+        this.breadcrumbs = this.getBreadcrumbs(this.activatedRoute.root);
     });
+  }
+
+  private getBreadcrumbs(route: ActivatedRoute, url = '', breadcrumbs: BreadcrumbsShape[] = []): BreadcrumbsShape[] {
+    const ROUTE_DATA_BREADCRUMB = 'title';
+
+    // get the child routes
+    const children: ActivatedRoute[] = route.children;
+
+    // return if there are no more children
+    if (children.length === 0) {
+      return breadcrumbs;
+    }
+
+    // iterate over each children
+    for (const child of children) {
+      // verify primary route
+      if (child.outlet !== PRIMARY_OUTLET) {
+        continue;
+      }
+
+      // verify the custom data property "breadcrumb" is specified on the route
+      if (!child.snapshot.data.hasOwnProperty(ROUTE_DATA_BREADCRUMB)) {
+        return this.getBreadcrumbs(child, url, breadcrumbs);
+      }
+
+      // get the route's URL segment
+      const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
+
+      // append route URL to URL
+      url += `/${routeURL}`;
+
+      // add breadcrumb
+      const breadcrumb: BreadcrumbsShape = {
+        label: child.snapshot.data[ROUTE_DATA_BREADCRUMB],
+        params: child.snapshot.params,
+        url: url
+      };
+      breadcrumbs.push(breadcrumb);
+
+      // recursive
+      return this.getBreadcrumbs(child, url, breadcrumbs);
+    }
   }
 }
