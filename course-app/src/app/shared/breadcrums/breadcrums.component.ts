@@ -34,7 +34,7 @@ export class BreadcrumsComponent implements OnInit {
     });
   }
 
-  private getBreadcrumbs(route: ActivatedRoute, url = '', breadcrumbs: BreadcrumbsShape[] = []): BreadcrumbsShape[] {
+  private getBreadcrumbs(route: ActivatedRoute, url = '', breadcrumbs: BreadcrumbsShape[] = []): BreadcrumbsShape[] | any {
     const ROUTE_DATA_BREADCRUMB = 'title';
 
     // get the child routes

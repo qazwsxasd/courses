@@ -22,7 +22,6 @@ import { Course, AuthorConvertedShape, AuthorShape } from '../../core/models/cou
 export class EditComponent implements OnInit {
   private course: Course;
   private courseEdit: Course;
-  private courseNew: Course;
   author_list: Array<AuthorConvertedShape>;
   formCourse: FormGroup;
   isFormReady: boolean;
@@ -71,18 +70,6 @@ export class EditComponent implements OnInit {
     });
   }
 
-  // private initForm(item: Course): void { // item -> deepCopy(item) ->
-  //   this.formCourse.setValue({
-  //     courseName: {
-  //       titleName: item.name
-  //     }
-  //   });
-  // }
-
-  addNew() {
-    // this.formCourse.reset();
-  }
-
   returnBack() {
     this.router.navigate(['edit']);
   }
@@ -105,21 +92,11 @@ export class EditComponent implements OnInit {
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    // let key: string;
-    // for (key in this.courseEdit) {
-    //   const controlProperty = `${key}Name`;
-    //   if (this.formCourse.controls.hasOwnProperty(controlProperty)) {
-    //     if (this.courseEdit[key] === this.formCourse.controls[controlProperty].value) {
-    //       return true;
-    //     }
-    //   }
-    // }
-
     const res = [
-      this.courseEdit.name === this.titleName.value,
-      this.courseEdit.description === this.descriptionName.value,
-      this.courseEdit.duration === this.durationName.value,
-      this.convertDateToInput(this.courseEdit.startDate) === this.startDateName.value
+      this.courseEdit!.name === this.titleName!.value,
+      this.courseEdit!.description === this.descriptionName!.value,
+      this.courseEdit!.duration === this.durationName!.value,
+      this.convertDateToInput(this.courseEdit!.startDate) === this.startDateName!.value
     ].every((element) => element);
 
     if (res) { return true; }

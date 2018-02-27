@@ -4,6 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './redux/reducer';
+
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material';
 
@@ -38,6 +42,10 @@ import { AppRoutingModule } from './app.routing.module';
 
     CoreModule,
     LoginModule,
+
+    StoreModule.forRoot(reducers),
+
+    StoreDevtoolsModule.instrument()
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [  ],
