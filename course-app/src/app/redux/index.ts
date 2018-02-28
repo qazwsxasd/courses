@@ -1,7 +1,7 @@
 import { Course } from './../core/models/course.model';
-import { AuthUser } from './../core/auth/auth.service';
+import { AuthUser, AUTHSTORE } from './../core/auth/auth.service';
 
-export interface State {
+export interface AppState {
   auth: AuthUser;
   courses: Course[];
 }

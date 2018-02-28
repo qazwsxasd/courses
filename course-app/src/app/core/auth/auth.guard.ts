@@ -3,18 +3,21 @@ import { CanActivate, Router, CanLoad, Route,
   ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild
 } from '@angular/router';
 
-import { AuthService } from './auth.service';
+import { AUTHSTORE } from './auth.service';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
-  private redirectUrl: string;
+  private isLogginedIn: boolean;
   constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private store: Store<any>
+  ) {
+    this.store.select(state => state[AUTHSTORE]).subscribe(({ name }) => this.isLogginedIn = !!name);
+  }
 
   private checkLogin(url: string = ''): boolean {
-    if (this.authService.isLoggedIn()) {
+    if (this.isLogginedIn) {
       return true;
     }
     this.router.navigate(['/login']);
@@ -23,20 +26,14 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    // const url: string = state.url;
-    // console.log('route=', route, 'state=', state);
     return this.checkLogin();
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    // const url: string = state.url;
-    // return this.checkLogin(url);
-    return true;
+    return this.checkLogin();
   }
 
   canLoad(route: Route): boolean {
-    // const url = `/${route.path}`;
-    // return this.checkLogin(url);
-    return true;
+    return this.checkLogin();
   }
 }

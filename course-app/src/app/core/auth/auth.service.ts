@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -9,7 +9,8 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/catch';
 
-import { LocalStorageService } from '../local-storage/local-storage.service';
+import { Store } from '@ngrx/store';
+import { AUTH_UPDATE_TOKEN, AUTH_UPDATE_INFO, AUTH_REMOVE } from '../../redux/reducer/auth.reducer';
 
 export interface AuthUser {
     name: {
@@ -23,6 +24,8 @@ export interface UserInfo {
     password: string;
 }
 
+export const AUTHSTORE = 'auth';
+
 const URL = 'http://localhost:3004/';
 const authRoute = 'auth';
 const infoRoute = 'userinfo';
@@ -34,80 +37,43 @@ export class AuthService {
   private subject: BehaviorSubject<any> = new BehaviorSubject<any>({ name: {} });
   isLogined: Subject<boolean> = new Subject<boolean>();
   private userName: AuthUser | null;
+  private token: string;
   constructor(
     private http: HttpClient,
     // TODO check if localStorage is available and set a proper service; refactor constructor
-    private localStorageService: LocalStorageService,
-    private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private store: Store<any>
   ) {
-    if (this.getLocalInfo()) {
-      this.logout(false);
-    }
+    this.store.select(state => state[AUTHSTORE]).subscribe(({ token }) => this.token = token);
   }
 
   login(user: UserInfo) {
     return this.http.post(`${URL}${authRoute}/login`, JSON.stringify(user))
       .map(res => {
-        this.localStorageService.setItem(KEY, res[KEY]);
+        this.store.dispatch({ type: AUTH_UPDATE_TOKEN, payload: { [KEY]: res[KEY]}});
       })
       .switchMap(() => this.getUserInfo())
       .subscribe((userInfo: AuthUser) => {
-        this.userName = userInfo;
-        console.log(userInfo);
-        this.channelPublish({ name: userInfo.name });
+        this.store.dispatch({ type: AUTH_UPDATE_INFO, payload: { name: userInfo.name } });
       },
-          err => { this.channelPublish(null); },
+          err => {  },
         () => {
       // TODO redirect to prev
       this.router.navigate(['edit']);
     });
   }
 
-  logout(send = true) {
-    this.localStorageService.removeItem(KEY);
-    this.userName = null;
-    if (send) {
-      this.channelPublish(this.userName);
-    }
-  }
-
-  channelPublish(data) {
-    this.subject.next(data); // username
-  }
-
-  channelSubscribe(callback) {
-    this.subject.subscribe(callback);
+  logout() {
+    this.store.dispatch({ type: AUTH_REMOVE });
   }
 
   private getUserInfo() {
-    const userInfo = this.localStorageService.getItem(KEY) || {};
     return this.http.post(`${URL}${authRoute}/${infoRoute}`, {}, {
-      headers: { 'Authorization': userInfo }
+      headers: { 'Authorization': this.token }
     });
   }
 
-  private getLocalInfo(): boolean {
-    return !!this.localStorageService.getItem(KEY);
-  }
-
-  isAuthenticated(): void {
-    this.getUserInfo().subscribe(
-      (res: AuthUser) => {
-      console.log('isAuthenticated? ', res);
-      this.channelPublish({ name: res.name });
-    },
-     err => {
-       this.channelPublish(null);
-       console.error('getUserInfo: ', err);
-     });
-  }
-
-  // isAuthenticated() {
-  //   return this.getUserInfo();
-  // }
-
-  isLoggedIn(): boolean {
-    return !!this.userName && !!this.userName.name.first;
+  isAuthenticated() {
+    return this.getUserInfo();
   }
 }

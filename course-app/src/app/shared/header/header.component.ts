@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
-import { AuthService, AuthUser } from '../../core/auth/auth.service';
+import { Router } from '@angular/router';
+import { AuthService, AuthUser, AUTHSTORE } from '../../core/auth/auth.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-header',
@@ -9,19 +10,20 @@ import { AuthService, AuthUser } from '../../core/auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   private user: AuthUser;
-  private welcomeString: string = 'guest';
+  private welcomeString = 'guest';
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private store: Store<any>
   ) { }
 
   ngOnInit() {
-    this.authService.channelSubscribe(name => this.user = name || { name: {} });
+    this.store.select(AUTHSTORE).subscribe(name => this.user = name || { name: {} });
   }
 
   isLogined(): boolean {
-    return this.authService.isLoggedIn();
+    return !!this.user.name;
   }
 
   toggleLogin(event: any): void {

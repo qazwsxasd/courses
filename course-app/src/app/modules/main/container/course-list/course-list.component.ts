@@ -9,6 +9,9 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/concat';
 
+import { Store } from '@ngrx/store';
+import { COURSES_GET } from '../../../../redux/reducer/courses.reducer';
+
 import { CourseListService } from '../../../../core/services/course-list.service';
 import { MatDialogService } from '../../../../core/dialogs/matDialog.service';
 
@@ -32,6 +35,7 @@ export class CourseListComponent implements OnInit {
   constructor(
     private courseListService: CourseListService,
     private matDialogService: MatDialogService,
+    private store: Store<any>
   ) { }
 
   ngOnInit() {

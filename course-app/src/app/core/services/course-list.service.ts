@@ -11,13 +11,15 @@ import 'rxjs/add/operator/toArray';
 
 import { Course, CourseShape } from '../models/course.model';
 
+import { Store } from '@ngrx/store';
+
 const URL = 'http://localhost:3004/';
 const courseRoute = 'courses';
 
 @Injectable()
 export class CourseListService {
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
   ) { }
 
   getCoursesList(data = {}): Observable<Course[]> {
