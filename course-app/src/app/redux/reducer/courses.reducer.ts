@@ -1,7 +1,8 @@
 import { Action } from '@ngrx/store';
 import { Course } from '../../core/models/course.model';
 
-export const COURSES_GET = '[Course] get course list';
+export const COURSES_LIST = '[Course] get course list';
+export const COURSES_FILTER = '[Course] filter course list';
 
 export interface CoursesActions extends Action {
   payload: Course[];
@@ -9,8 +10,10 @@ export interface CoursesActions extends Action {
 
 export function reducer(state = [], action: CoursesActions) {
   switch (action.type) {
-    case COURSES_GET:
-      return Object.assign({}, state, action.payload);
+    case COURSES_LIST:
+      return [ ...state, ...action.payload ];
+    case COURSES_FILTER:
+      return [ ...action.payload ]; // ?
     default:
       return state;
   }

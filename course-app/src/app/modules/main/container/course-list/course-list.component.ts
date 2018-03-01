@@ -10,7 +10,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/concat';
 
 import { Store } from '@ngrx/store';
-import { COURSES_GET } from '../../../../redux/reducer/courses.reducer';
+import { COURSES_LIST, COURSES_FILTER } from '../../../../redux/reducer/courses.reducer';
 
 import { CourseListService } from '../../../../core/services/course-list.service';
 import { MatDialogService } from '../../../../core/dialogs/matDialog.service';
@@ -25,6 +25,7 @@ import { Course } from '../../../../core/models/course.model';
 export class CourseListComponent implements OnInit {
   courseList: Course[];
   filteredList: Observable<Course[]>;
+  filteredList1: Course[];
   filterField: string;
   private queryText: string;
   isAsc: boolean;
@@ -39,6 +40,11 @@ export class CourseListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.store.select(state => state.courses)
+      .subscribe(res => {
+        console.log(res);
+        this.filteredList1 = res;
+      });
     this.chunkedCourses = [];
     this.filterField = 'startDate';
     // this.filteredList = this.courseListService.getCoursesList();
@@ -72,23 +78,19 @@ export class CourseListComponent implements OnInit {
       query: this.queryText
     })
     .subscribe(res => {
-      this.filteredList = Observable.of(res);
+      this.store.dispatch({ type: COURSES_FILTER, payload: res });
     });
   }
 
   appendMoreCourses(start = this.currentPage, count = this.limit, query = this.queryText || '') {
-    this.filteredList = Observable
-      .forkJoin(
-        this.filteredList,
-        this.courseListService.getCoursesList({
-          start,
-          count,
-          query
-        })
-      )
-      .map(([res1, res2]) => [...res1, ...res2])
-      .do(() => {
-        this.currentPage += this.limit;
-      });
+    this.courseListService.getCoursesList({
+      start,
+      count,
+      query
+    })
+    .subscribe((res) => {
+      this.store.dispatch({ type: COURSES_LIST, payload: res });
+      this.currentPage += this.limit;
+    });
   }
 }
