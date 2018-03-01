@@ -25,7 +25,7 @@ import { Course } from '../../../../core/models/course.model';
 export class CourseListComponent implements OnInit {
   courseList: Course[];
   filteredList: Observable<Course[]>;
-  filteredList1: Course[];
+  filteredListObs: Observable<Course[]>;
   filterField: string;
   private queryText: string;
   isAsc: boolean;
@@ -40,15 +40,9 @@ export class CourseListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.select(state => state.courses)
-      .subscribe(res => {
-        console.log(res);
-        this.filteredList1 = res;
-      });
+    this.filteredListObs = this.store.select(state => state.courses)
     this.chunkedCourses = [];
     this.filterField = 'startDate';
-    // this.filteredList = this.courseListService.getCoursesList();
-    this.filteredList = Observable.of([]);
     this.appendMoreCourses();
   }
 
