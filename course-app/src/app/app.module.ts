@@ -41,7 +41,7 @@ import { AppRoutingModule } from './app.routing.module';
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [  ],
-  exports: [  HeaderComponent, FooterComponent, BreadcrumsComponent ],
+  exports: [  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

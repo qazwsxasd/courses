@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { EditRoutingModule } from './edit.routing.module';
 
-import { AuthorsListService } from './edit.service';
+import { AuthorsListService } from './authors-list.service';
 
 import {
   EditComponent,
