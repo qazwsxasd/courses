@@ -22,10 +22,9 @@ import { Course, AuthorConvertedShape, AuthorShape } from '../../core/models/cou
 export class EditComponent implements OnInit {
   private course: Course;
   private courseEdit: Course;
-  author_list: Array<AuthorConvertedShape>;
-  formCourse: FormGroup;
-  isFormReady: boolean;
-  duration = 0;
+  private author_list: Array<AuthorConvertedShape>;
+  private formCourse: FormGroup;
+  private isFormReady: boolean;
 
   constructor(
     private builder: FormBuilder,
