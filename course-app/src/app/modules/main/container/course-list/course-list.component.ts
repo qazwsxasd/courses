@@ -25,7 +25,7 @@ import { Course } from '../../../../core/models/course.model';
 export class CourseListComponent implements OnInit {
   courseList: Course[];
   filteredList: Observable<Course[]>;
-  filteredListObs: Observable<Course[]>;
+  filteredList$ : Observable<Course[]>;
   filterField: string;
   private queryText: string;
   isAsc: boolean;
@@ -40,7 +40,7 @@ export class CourseListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.filteredListObs = this.store.select(state => state.courses)
+    this.filteredList$  = this.store.select(state => state.courses)
     this.chunkedCourses = [];
     this.filterField = 'startDate';
     this.appendMoreCourses();
