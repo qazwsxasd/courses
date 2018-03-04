@@ -51,10 +51,8 @@ export class DurationComponent implements ControlValueAccessor {
   }
 
   set value(newValue) {
-    if (newValue) {
-      this.currentValue = newValue;
-      this.onChange(newValue);
-    }
+    this.currentValue = newValue;
+    this.onChange(newValue);
   }
 
   get value() {
