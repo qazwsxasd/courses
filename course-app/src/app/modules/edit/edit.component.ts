@@ -77,14 +77,15 @@ export class EditComponent implements OnInit {
   submit(form) { }
 
   setErrorClass(elementName: string) {
+    const control = this.formCourse.controls[elementName];
     return {
-      'show-error': (this.formCourse.controls[elementName].dirty && this.formCourse.controls[elementName].invalid)
+      'show-error': (control.dirty && control.invalid)
     };
   }
 
   private displpayErrorMessage(elementName: string): boolean {
-    return !!((this.formCourse.controls[elementName].touched || this.formCourse.controls[elementName].dirty)
-      && this.formCourse.controls[elementName].errors);
+    const control = this.formCourse.controls[elementName];
+    return !!((control.touched || control.dirty) && control.errors);
   }
 
   private convertDateToInput(date: string): string {
