@@ -10,7 +10,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/concat';
 
 import { Store } from '@ngrx/store';
-import { COURSES_LIST, COURSES_FILTER } from '../../../../redux/reducer/courses.reducer';
+import { COURSES_LIST, COURSES_FILTER, COURSES_DELETE } from '../../../../redux/reducer/courses.reducer';
 
 import { CourseListService } from '../../../../core/services/course-list.service';
 import { MatDialogService } from '../../../../core/dialogs/matDialog.service';
@@ -56,10 +56,10 @@ export class CourseListComponent implements OnInit {
     .switchMap(() => this.courseListService.deleteCourse(item))
     .switchMap(() => this.courseListService.getCoursesList({
       start: 0,
-      count: this.currentPage  - this.limit // Math.floor(this.currentPage / this.limit) + this.limit
+      count: this.currentPage //  - this.limit // Math.floor(this.currentPage / this.limit) + this.limit
     }))
     .subscribe(res => {
-      this.filteredList = Observable.of(res);
+      this.store.dispatch({ type: COURSES_DELETE, payload: res });
     });
 
   }
