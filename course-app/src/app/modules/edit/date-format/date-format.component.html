@@ -1,7 +1,8 @@
 <input
   class="date-format"
-  [ngClass]="invalid"
+  [ngClass]="{'show-error' : !!invalid}"
   type="date"
   name="date"
   [(ngModel)]="value"
 />
+<pre>{{!!invalid | json}}</pre>

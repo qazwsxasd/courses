@@ -7,5 +7,6 @@
 }
 
 .show-error {
+  color: $error-font-color;
   @include error-message;
 }

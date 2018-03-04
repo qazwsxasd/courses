@@ -16,7 +16,7 @@ export const DATE_VALUE_VALIDATOR: any = {
 };
 
 export function DateValidator(period = 14) {
-  const deltaDays = moment().subtract(period, 'days');
+  const deltaDays = new moment().subtract(period, 'days');
   return (c: FormControl) => {
     const err = {
       dateError: {
@@ -25,7 +25,16 @@ export function DateValidator(period = 14) {
       }
     };
 
-    return (!c.value || moment(c.value) < deltaDays) ? err : null;
+    // return (moment(c.value) < deltaDays) || !c.value ? err : null;
+    if (c.value) {
+      const res = moment(c.value) < deltaDays;
+      if (moment(c.value) < deltaDays) {
+        return err;
+      }
+      return null;
+    } else {
+      return err;
+    }
   };
 }
 
@@ -36,7 +45,7 @@ export function DateValidator(period = 14) {
   providers: [DATE_VALUE_ACCESSOR, DATE_VALUE_VALIDATOR]
 })
 export class DateFormatComponent implements ControlValueAccessor {
-  @Input() invalid = false;
+  @Input() invalid;
   private _value: any = '';
   get value(): any { return this._value; };
 

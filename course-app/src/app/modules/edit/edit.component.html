@@ -39,12 +39,10 @@
       <div class="form-row-data">
         <app-date-format
           id="rowDate"
-          [invalid]="setErrorClass('startDateName')"
+          [invalid]="displpayErrorMessage('startDateName') || startDateName?.errors?.dateError"
           formControlName="startDateName"
         ></app-date-format>
-        <span  class="form-row-errors" *ngIf="displpayErrorMessage('startDateName')">
-          <span *ngIf="startDateName?.errors?.dateError.period">Set start date please, it shouldn't be eralier than 14 days ago</span>
-        </span>
+        <span class="form-row-errors" *ngIf="startDateName?.errors?.dateError.period">Set start date please, it shouldn't be eralier than 14 days ago</span>
       </div>
     </div>
 
