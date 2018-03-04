@@ -10,7 +10,7 @@ import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/catch';
 
 import { Store } from '@ngrx/store';
-import { AUTH_UPDATE_TOKEN, AUTH_UPDATE_INFO, AUTH_REMOVE } from '../../redux/reducer/auth.reducer';
+import { AUTH_UPDATE, AUTH_REMOVE } from '../../redux/reducer/auth.reducer';
 
 export interface AuthUser {
     name: {
@@ -50,11 +50,11 @@ export class AuthService {
   login(user: UserInfo) {
     return this.http.post(`${URL}${authRoute}/login`, JSON.stringify(user))
       .map(res => {
-        this.store.dispatch({ type: AUTH_UPDATE_TOKEN, payload: { [KEY]: res[KEY]}});
+        this.store.dispatch({ type: AUTH_UPDATE, payload: { [KEY]: res[KEY]}});
       })
       .switchMap(() => this.getUserInfo())
       .subscribe((userInfo: AuthUser) => {
-        this.store.dispatch({ type: AUTH_UPDATE_INFO, payload: { name: userInfo.name } });
+        this.store.dispatch({ type: AUTH_UPDATE, payload: { name: userInfo.name } });
       },
           err => {  },
         () => {
