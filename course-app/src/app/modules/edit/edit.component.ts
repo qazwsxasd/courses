@@ -83,7 +83,7 @@ export class EditComponent implements OnInit {
     };
   }
 
-  private displpayErrorMessage(elementName: string): boolean {
+  displpayErrorMessage(elementName: string): boolean {
     const control = this.formCourse.controls[elementName];
     return !!((control.touched || control.dirty) && control.errors);
   }
