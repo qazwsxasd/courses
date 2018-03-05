@@ -1,5 +1,5 @@
 import { Component, Input, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, FormControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, FormArray } from '@angular/forms';
 
 export const INPUT_AUTHORS_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -7,21 +7,38 @@ export const INPUT_AUTHORS_ACCESSOR: any = {
   multi: true
 };
 
+export const INPUT_AUTHORS_VALIDATOR: any = {
+  provide: NG_VALIDATORS,
+  useExisting: forwardRef(() => ListAuthorsComponent),
+  multi: true
+};
+
+export function AuthorListValidator() {
+  return (controlArray: FormArray) => {
+    const err = {
+      listError: {
+        given: controlArray.value,
+      }
+    };
+
+    const res = controlArray.value.find(item => item.checked);
+    return ( !controlArray.value || !res ) ? err : null;
+  };
+}
+
 @Component({
   selector: 'app-list-authors',
   templateUrl: './list-authors.component.html',
   styleUrls: ['./list-authors.component.scss'],
-  // providers: [INPUT_AUTHORS_ACCESSOR, INPUT_AUTHORS_VALIDATORS]
-  providers: [INPUT_AUTHORS_ACCESSOR]
+  providers: [INPUT_AUTHORS_ACCESSOR, INPUT_AUTHORS_VALIDATOR]
+  // providers: [INPUT_AUTHORS_ACCESSOR]
 })
 
 export class ListAuthorsComponent implements ControlValueAccessor {
   @Input('authors') authors: any[];
   currentValue: any;
 
-  constructor() {
-    console.log(this);
-  }
+  constructor() { }
 
   set value(value) {
     if (value) {
@@ -42,6 +59,7 @@ export class ListAuthorsComponent implements ControlValueAccessor {
 
   onChange = (_) => {};
   onTouched = () => {};
+  validateFn: any = () => {};
 
   registerOnChange(fn: any) {
     this.onChange = fn;
@@ -55,5 +73,9 @@ export class ListAuthorsComponent implements ControlValueAccessor {
     if (value !== this.currentValue) {
       this.currentValue = value;
     }
+  }
+
+  validate(c: FormArray) {
+    return this.validateFn(c);
   }
 }

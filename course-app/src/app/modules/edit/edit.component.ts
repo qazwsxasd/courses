@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router  } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
@@ -11,6 +11,7 @@ import { CourseListService } from '../../core/services/course-list.service';
 
 import { DurationValidator } from './duration/duration.component';
 import { DateValidator } from './date-format/date-format.component';
+import { AuthorListValidator } from './list-authors/list-authors.component';
 
 import { Course, AuthorConvertedShape, AuthorShape } from '../../core/models/course.model';
 
@@ -61,7 +62,8 @@ export class EditComponent implements OnInit {
         titleName: [this.courseEdit.name, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
         descriptionName: [this.courseEdit.description, [Validators.required, Validators.maxLength(500)]],
         startDateName: [this.courseEdit.startDate, [Validators.required, DateValidator()]],
-        authorsName: this.builder.array(this.author_list),
+        // authorsName: this.builder.array(this.author_list),
+        authorsName: this.builder.array(this.author_list, AuthorListValidator()),
         durationName: [this.courseEdit.duration, [Validators.required, DurationValidator(500, 0)]]
       });
 
@@ -124,7 +126,7 @@ export class EditComponent implements OnInit {
       this.courseListService.addItemToCourseList(this.courseEdit).subscribe(
         () => {},
         (err) => console.log(`can't add new item: ${err}`),
-        () => this.returnBack())
+        () => this.returnBack()
       );
     }
     // should be error handler

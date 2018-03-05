@@ -71,6 +71,7 @@
         <div class="form-row-data author-container">
           <div class="author-checkbox">
             <app-list-authors formArrayName="authorsName" [authors]="authorsName.value"></app-list-authors>
+            <span *ngIf="authorsName?.errors?.listError">List can't be empty</span>
           </div>
         </div>
       </div>
