@@ -8,7 +8,7 @@ import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 const routes: Routes = [
   {
-    path: 'main',
+    path: '',
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
     loadChildren: './modules/main/main.module#MainModule',
@@ -19,11 +19,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: './modules/edit/edit.module#EditModule'
   },
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: '',
+  //   redirectTo: 'login',
+  //   pathMatch: 'full'
+  // },
   {
     path: 'login',
     component: LoginComponent,

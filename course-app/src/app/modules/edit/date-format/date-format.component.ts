@@ -16,7 +16,7 @@ export const DATE_VALUE_VALIDATOR: any = {
 };
 
 export function DateValidator(period = 14) {
-  const deltaDays = new moment().subtract(period, 'days');
+  const deltaDays = moment().subtract(period, 'days');
   return (c: FormControl) => {
     const err = {
       dateError: {

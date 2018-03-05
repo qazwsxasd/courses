@@ -10,6 +10,7 @@ import 'rxjs/add/operator/mergeAll';
 import 'rxjs/add/operator/toArray';
 
 import { Course, CourseShape } from '../models/course.model';
+import {duration} from 'moment';
 
 const URL = 'http://localhost:3004/';
 const courseRoute = 'courses';
@@ -46,8 +47,8 @@ export class CourseListService {
     .map(courses => courses.filter(item => item.id === id)[0]);
   }
 
-  addItemToCourseList(item: CourseShape): void {
-    this.http.post(`${URL}${courseRoute}`, JSON.stringify(this.convertDataToBackendFormat(item)));
+  addItemToCourseList(item: CourseShape): Observable<any> {
+    return this.http.post(`${URL}${courseRoute}`, JSON.stringify(this.convertDataToBackendFormat(item)))
   }
 
   updateCourse(item: Course): Observable<any> {
@@ -66,12 +67,14 @@ export class CourseListService {
   private convertDataToBackendFormat(item: Course): any {
     const obj = Object.assign({}, item, {
       id: item.id || Math.ceil((Math.random() * 1000)),
-      start: new Date(item.startDate).toISOString().slice(0, -1),
+      date: new Date(item.startDate).toISOString().slice(0, -1),
       isTopRated: item.rate,
+      length: Number(item.duration),
       authors: item.authors || []
     });
     delete obj.startDate;
     delete obj.rate;
+    delete obj.duration;
     return obj;
   }
 }

@@ -70,7 +70,7 @@ export class EditComponent implements OnInit {
   }
 
   returnBack() {
-    this.router.navigate(['main']);
+    this.router.navigate(['']);
   }
 
   submit(form) { }
@@ -110,7 +110,8 @@ export class EditComponent implements OnInit {
       name: data.titleName,
       description: data.descriptionName,
       duration: data.durationName,
-      startDate: data.startDateName
+      startDate: data.startDateName,
+      authors: data.authorsName.filter(author => author.checked)
     });
 
     if (this.courseEdit.id) {
@@ -120,7 +121,11 @@ export class EditComponent implements OnInit {
           (err) => console.log(`can't update data: ${err}`),
           () => this.returnBack())
     } else {
-      this.courseListService.addItemToCourseList(this.courseEdit);
+      this.courseListService.addItemToCourseList(this.courseEdit).subscribe(
+        () => {},
+        (err) => console.log(`can't add new item: ${err}`),
+        () => this.returnBack())
+      );
     }
     // should be error handler
   }

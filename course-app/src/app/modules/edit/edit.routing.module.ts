@@ -23,6 +23,7 @@ const routes: Routes = [
     component: EditComponent,
     canDeactivate: [CanDeactivateGuard],
     data: { title: 'edit course' },
+    runGuardsAndResolvers: 'always',
     resolve: {
       course: EditResolveGuard,
       authors: AuthorResolveGuard
