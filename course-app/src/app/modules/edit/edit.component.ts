@@ -70,7 +70,7 @@ export class EditComponent implements OnInit {
   }
 
   returnBack() {
-    this.router.navigate(['edit']);
+    this.router.navigate(['main']);
   }
 
   submit(form) { }

@@ -8,7 +8,7 @@ import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 const routes: Routes = [
   {
-    path: 'edit',
+    path: 'main',
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
     loadChildren: './modules/main/main.module#MainModule',

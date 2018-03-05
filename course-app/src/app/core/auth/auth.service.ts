@@ -60,7 +60,7 @@ export class AuthService {
           err => { this.channelPublish(null); },
         () => {
       // TODO redirect to prev
-      this.router.navigate(['edit']);
+      this.router.navigate(['main']);
     });
   }
 
